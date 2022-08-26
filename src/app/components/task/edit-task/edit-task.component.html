@@ -1,0 +1,90 @@
+<!----------------- Editing Department Data modal -----------------> 
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-edit">Update Task</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm">
+      <input type="hidden" class="form-control" formControlName="taskId">
+
+      <div class="form-group">
+        <label>Title:</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="title">
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!editForm.get('title')?.valid &&
+            editForm.get('title')?.touched">Please Enter the title!
+          </span>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label>Create Date:</label>
+        <div class="input-group">
+          <input type="date" class="form-control" formControlName="createDate">
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!editForm.get('createDate')?.valid &&
+            editForm.get('createDate')?.touched">Please Enter the Create date!
+          </span>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label>Due Date:</label>
+        <div class="input-group">
+          <input type="date" class="form-control" formControlName="dueDate">
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!editForm.get('dueDate')?.valid &&
+            editForm.get('dueDate')?.touched">Please Enter the Due date!
+          </span>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <div class="input-group">
+          <select formControlName="status" [ngModel]="selectedStatus">
+            <option value="CREATED"> CREATED</option>
+            <option value="PENDING" > PENDING</option>
+            <option value="COMPLETED"> COMPLETED</option>
+            <option value="CANCELED"> CANCELED</option>
+          </select>
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!editForm.get('status')?.valid &&
+            editForm.get('status')?.touched">Please Enter the Status!
+          </span>
+          </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>Description:</label>
+        <div class="input-group">
+          <textarea class="form-control" formControlName="description"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>User name:</label>
+        <div class="input-group">
+          <select formControlName="userr">
+            <option *ngFor="let user of users" [ngValue]="user"
+             [selected]="user.firstName + ' ' +user.lastName == selectedUser" >
+            {{user.firstName }} {{user.lastName}} {{user.firstName +' ' +user.lastName==selectedUser}}
+            </option>
+          
+          </select>
+        </div>
+      </div>
+
+        <div class="modal-footer">
+          <button data-dismiss="modal" class="btn btn-info" (click)="onSave(editForm.value)" >Save changes</button>
+          <button  type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+        </div>
+    </form>
+  </div>
+<!----------------- End editing Data modal -----------------> 
+

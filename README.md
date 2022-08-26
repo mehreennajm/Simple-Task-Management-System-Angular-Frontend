@@ -1,3 +1,16 @@
+1- run `npm i`
+2- install below packages
+`npm install bootstrap --save`
+`npm install jquery --save`
+`npm install popper.js --save`
+`npm install datatables.net --save`
+`npm install datatables.net-dt --save`
+`npm install angular-datatables --save`
+`npm install @types/jquery --save-dev`
+`npm install @types/datatables.net --save-dev`
+
+
+
 # TaskFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.

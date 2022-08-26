@@ -1,12 +1,21 @@
 1- run `npm i`
-2- install below packages
+
+2- install below packages:
+
 `npm install bootstrap --save`
+
 `npm install jquery --save`
+
 `npm install popper.js --save`
+
 `npm install datatables.net --save`
+
 `npm install datatables.net-dt --save`
+
 `npm install angular-datatables --save`
+
 `npm install @types/jquery --save-dev`
+
 `npm install @types/datatables.net --save-dev`
 
 

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BsModalService } from "ngx-bootstrap/modal";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { TaskComponent } from './components/task/task.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -16,18 +15,22 @@ import { UserService } from './components/user/user-service';
 import { HttpClientModule } from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
 import { TaskService } from './components/task/task-service';
+import { AuthenticationService } from './components/services/authentication.service';
+import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     UserComponent,
     TaskComponent,
     PageNotFoundComponent,
     SidebarComponent,
     EditUserComponent,
     EditTaskComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { TaskService } from './components/task/task-service';
     ReactiveFormsModule,
     DataTablesModule
   ],
-  providers: [UserService,FormBuilder,BsModalService,TaskService],
+  providers: [UserService,FormBuilder,BsModalService,TaskService,AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

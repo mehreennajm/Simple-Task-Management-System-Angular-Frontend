@@ -71,9 +71,11 @@
         <label>User name:</label>
         <div class="input-group">
           <select formControlName="userr">
-            <option *ngFor="let user of users" [ngValue]="user"
-             [selected]="user.firstName + ' ' +user.lastName == selectedUser" >
-            {{user.firstName }} {{user.lastName}} {{user.firstName +' ' +user.lastName==selectedUser}}
+            <option [selected]="selectedUser" >
+              {{selectedUser}}
+            </option>
+            <option *ngFor="let user of users" [ngValue]="user">
+            {{user.firstName }} {{user.lastName}}
             </option>
           
           </select>

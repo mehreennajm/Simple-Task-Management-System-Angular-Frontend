@@ -18,7 +18,7 @@ export class TaskComponent implements OnInit {
   tasks: Task[];
   users: User[];
   selectedStatus = "";
-  selectedUser : string = "";
+  selectedUser : User;
   @ViewChild('f') form: NgForm;
 
   constructor(
@@ -70,9 +70,9 @@ export class TaskComponent implements OnInit {
         task: task,
         
         users: this.users,
-        
+  
         selectedStatus: this.selectedStatus = task.status,
-        //@ts-ignore
+       
         selectedUser : this.selectedUser = task.userr,
       }
     });

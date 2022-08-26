@@ -21,7 +21,7 @@ export class EditTaskComponent implements OnInit {
 
   @Input() users: User[];
 
-  @Input() selectedUser: string = "";
+  @Input() selectedUser: User;
 
  
 

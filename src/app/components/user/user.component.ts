@@ -14,8 +14,9 @@ import { Subject } from 'rxjs';
 export class UserComponent implements OnInit {
   users: User[];
   selectedDep : string = "";
+  dtOptions: any = {};
   @ViewChild('f') f: NgForm;
-  dtOptions: DataTables.Settings = {};
+
 
   constructor(
     private userService: UserService,
@@ -25,20 +26,21 @@ export class UserComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      processing: true
-    };
-
     this.userService.getUsers();
     this.userService.userChanged.subscribe((u) => {
       this.users = u;
+        setTimeout(()=>{                          
+        $('#datatableUsers').DataTable( {
+          pagingType: 'full_numbers',
+          pageLength: 5,
+          processing: true,
+          destroy: true,
+          lengthMenu : [5, 10, 25],
+          order:[[1,"desc"]]
+      } );
+      }, 1);
     }); 
-   
-  
-    
-  
+
   }
 
 

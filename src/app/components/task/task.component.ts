@@ -20,10 +20,10 @@ export class TaskComponent implements OnInit {
   selectedStatus = "";
   selectedUser : User;
   @ViewChild('f') form: NgForm;
+  dtOptions: any = {};
 
   constructor(
     private bsModalService: BsModalService,
-    private modalService: NgbModal,
     public bsModalRef: BsModalRef, 
     private userService: UserService,
     private taskService: TaskService,
@@ -34,11 +34,21 @@ export class TaskComponent implements OnInit {
     this.taskService.getTasks();
     this.taskService.taskChanged.subscribe((t) => {
       this.tasks = t;
+      setTimeout(()=>{                          
+        $('#datatableTask').DataTable( {
+          pagingType: 'full_numbers',
+          pageLength: 5,
+          processing: true,
+          destroy: true,
+          lengthMenu : [5, 10, 25],
+          order:[[1,"desc"]]
+      } );
+      }, 1);
     });
 
     this.userService.getUsers();
     this.userService.userChanged.subscribe((u) => {
-      this.users = u;
+      this.users = u
     });
 
   }

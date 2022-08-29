@@ -1,16 +1,16 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <app-sidebar></app-sidebar>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="border">
                     <button class="btn btn-md btn-outline-primary  float-left" (click)="open(content)">
                       <i class="fa fa-plus"></i>New User</button>
             </div>
             <hr>
             <div>
-              <table class="table table-bordered table-striped" datatable [dtOptions]="dtOptions" >
+              <table class="table table-bordered table-striped" id="datatableUsers">
                 <thead>
                 <tr>
                   <th>ID</th>

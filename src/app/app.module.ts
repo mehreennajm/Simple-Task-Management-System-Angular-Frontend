@@ -12,12 +12,14 @@ import { EditTaskComponent } from './components/task/edit-task/edit-task.compone
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './components/user/user-service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
 import { TaskService } from './components/task/task-service';
-import { AuthenticationService } from './components/services/authentication.service';
-import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { HomeComponent } from './components/home/home.component';
+import { AuthService } from './components/_services/auth.service';
+import { UserAuthService } from './components/_services/user-auth.service';
+
 
 
 @NgModule({
@@ -29,8 +31,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     SidebarComponent,
     EditUserComponent,
     EditTaskComponent,
-    LoginComponent,
     LogoutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     ReactiveFormsModule,
     DataTablesModule
   ],
-  providers: [UserService,FormBuilder,BsModalService,TaskService,AuthenticationService],
+  providers: [UserService,FormBuilder,BsModalService,TaskService,AuthService,UserAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

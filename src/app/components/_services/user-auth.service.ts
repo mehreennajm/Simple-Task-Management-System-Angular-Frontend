@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 export class UserAuthService {
 
   constructor() { }
-  public setRoles(role:string) {
-    localStorage.setItem('roles', JSON.stringify(role));
+  public setRole(role:string) {
+    localStorage.setItem('role', JSON.stringify(role));
   }
 
-  public getRoles(): []{
-    return JSON.parse(localStorage.getItem('role') || '{}');
+  public getRole(){
+    return JSON.parse(localStorage.getItem('role')||' ');
   }
   public setToken(jwtToken: string) {
     localStorage.setItem('jwtToken', jwtToken);
@@ -26,6 +26,6 @@ export class UserAuthService {
   }
 
   public isLoggedIn() {
-    return this.getRoles() && this.getToken();
+    return this.getRole() && this.getToken();
   }
 }

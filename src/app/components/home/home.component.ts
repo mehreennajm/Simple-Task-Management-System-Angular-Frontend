@@ -15,14 +15,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   login(loginForm: NgForm) {
-    this.authService.login(loginForm.value).subscribe({
-      next: response => {
-       console.log(response);
-      },
-      error: error => {
-        console.log(error);
+    this.authService.login(loginForm.value).subscribe(
+      (response)=>{
+        console.log(response);
       }
-    });
+    );
   }
 
 }

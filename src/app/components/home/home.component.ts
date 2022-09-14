@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
         this.userAuthService.setRole(response.user.role);
         this.userAuthService.setToken(response.jwtToken);
 
-        console.log(response);
 
         const role = response.user.role;
         if(role === 'ROLE_ADMIN'){
@@ -33,6 +32,7 @@ export class HomeComponent implements OnInit {
         }
         else if(role === 'ROLE_MANAGER'){
           this.router.navigate(['/tasks']);
+          console.log(this.userAuthService.getRole());
         }
         else {
           this.router.navigate(['/']);

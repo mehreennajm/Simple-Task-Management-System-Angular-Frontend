@@ -18,4 +18,7 @@ export class AuthService {
   public login(loginData:any) {
     return this.httpClient.post(this.PATH_OF_API+ '/authenticate',loginData,{headers:this.httpOptions});
   }
+
+  
+  
 } 

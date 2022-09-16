@@ -11,7 +11,7 @@ import { UserAuthService } from '../_services/user-auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  showErrorMessage = false;
   constructor(private authService: AuthService,
               private userAuthService: UserAuthService,
               private router: Router) { }
@@ -19,13 +19,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   login(loginForm: NgForm) {
-    this.authService.login(loginForm.value).subscribe(
-      (response:any)=>{
-        
+    
+    this.authService.login(loginForm.value).subscribe({
+      next: (response:any)=>{
         this.userAuthService.setRole(response.user.role);
         this.userAuthService.setToken(response.jwtToken);
-
-
         const role = response.user.role;
         if(role == 'ROLE_ADMIN'){
           this.router.navigate(['/users']);
@@ -33,11 +31,13 @@ export class HomeComponent implements OnInit {
         else if(role == 'ROLE_MANAGER'){
           this.router.navigate(['/tasks']);
         }
-        else {
-          console.log("not")
+        else { 
+            this.showErrorMessage = true;
         }
+      },
+      error: ()=>{
+        this.showErrorMessage=true;
       }
-    );
+    });
   }
-
 }

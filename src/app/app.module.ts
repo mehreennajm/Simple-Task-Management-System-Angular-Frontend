@@ -15,7 +15,6 @@ import { UserService } from './components/user/user-service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
 import { TaskService } from './components/task/task-service';
-import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthService } from './components/_services/auth.service';
 import { UserAuthService } from './components/_services/user-auth.service';
@@ -31,7 +30,6 @@ import { UserAuthService } from './components/_services/user-auth.service';
     SidebarComponent,
     EditUserComponent,
     EditTaskComponent,
-    LogoutComponent,
     HomeComponent
   ],
   imports: [

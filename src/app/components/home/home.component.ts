@@ -27,15 +27,14 @@ export class HomeComponent implements OnInit {
 
 
         const role = response.user.role;
-        if(role === 'ROLE_ADMIN'){
+        if(role == 'ROLE_ADMIN'){
           this.router.navigate(['/users']);
         }
-        else if(role === 'ROLE_MANAGER'){
+        else if(role == 'ROLE_MANAGER'){
           this.router.navigate(['/tasks']);
-          console.log(this.userAuthService.getRole());
         }
         else {
-          this.router.navigate(['/']);
+          console.log("not")
         }
       }
     );

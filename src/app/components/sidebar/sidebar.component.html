@@ -1,13 +1,14 @@
 <h1 class="btn btn-warning text-center w-100 h-25" style="font-size: 2em;">Menu</h1>
 <div class="list-group">
  
-     
-  <a class="list-group-item list-group-item-action" routerLink="/tasks" routerLinkActive="active"><i class="fa fa-task"></i> Tasks</a>
-  <a class="list-group-item list-group-item-action" routerLink="/users" routerLinkActive="active"><i class="fa fa-user"></i> Users</a>
-   
   
+  <a class="list-group-item list-group-item-action" routerLink="/users" *ngIf="authService.roleMatch('ROLE_ADMIN')"routerLinkActive="active">
+    <i class="fa fa-user"></i> Users</a>
+    
+  <a class="list-group-item list-group-item-action"routerLink="/tasks" routerLinkActive="active" *ngIf="authService.roleMatch('ROLE_MANAGER')">
+   <i class="fa fa-task"></i> Tasks</a>
 
 </div>
 <div class="btn-sign-out">
-  <a class="btn btn-danger w-100" routerLink="/logout" routerLinkActive="active"><i class="fa fa-sign-out"></i>Sign out</a>
+  <a class="btn btn-danger w-100" (click)="logout()"><i class="fa fa-sign-out"></i>Sign out</a>
 </div>

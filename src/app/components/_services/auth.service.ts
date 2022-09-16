@@ -10,7 +10,8 @@ import { UserAuthService } from './user-auth.service';
 export class AuthService {
 
   PATH_OF_API = 'api';
-  httpOptions = new HttpHeaders({"No-Auth": "True"});
+  requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
+  
   
   constructor(
     private httpClient:HttpClient,
@@ -18,7 +19,7 @@ export class AuthService {
   ) { }
 
   public login(loginData:any) {
-    return this.httpClient.post(this.PATH_OF_API+ '/authenticate',loginData,{headers:this.httpOptions});
+    return this.httpClient.post(this.PATH_OF_API+ '/authenticate',loginData,{headers:this.requestHeader});
   }
 
   public roleMatch(allowedRole:any): boolean | undefined{
@@ -38,7 +39,5 @@ export class AuthService {
    }
     
   }
-
-  
   
 } 

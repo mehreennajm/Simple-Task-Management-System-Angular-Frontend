@@ -12,7 +12,6 @@ export class TaskService implements OnInit {
     deleteId: number;
     closeResult: string;
     editForm: FormGroup;
-    users: User[];
     selectedProject: string = "";
     taskChanged=new Subject<Task[]>;
     selectedStatus = "Created";
@@ -37,12 +36,11 @@ export class TaskService implements OnInit {
     }
   
     getTasks() {
-        this.httpClient.get<any>("api/tasks/").subscribe((response) => {
+        this.httpClient.get<any>("api/tasks").subscribe((response) => {
             this.taskChanged.next(response);
           });
     }
 
-  
 
   
     openCreateModal(content: any) {

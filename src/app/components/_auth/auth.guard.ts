@@ -24,12 +24,8 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,state: RouterStateSnapshot):| Observable<boolean | UrlTree>| Promise<boolean | UrlTree>| boolean| UrlTree {
     if (this.userAuthService.getToken() !== null) {
       const role = route.data['role'];
-  
-      console.log(role);
-
       if (role) {
         const match = this.authService.roleMatch(role);
-        console.log("after role match:"+ role);
         if (match) {
           return true;
         } else {

@@ -75,7 +75,7 @@
               {{selectedUser}}
             </option>
             <option *ngFor="let user of users" [ngValue]="user">
-            {{user.firstName }} {{user.lastName}}
+              <p *ngIf="user.role === 'ROLE_USER'">{{user.firstName}} {{user.lastName}}</p>
             </option>
           
           </select>

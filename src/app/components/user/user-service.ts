@@ -17,13 +17,14 @@ export class UserService implements OnInit {
   editForm: FormGroup;
   deleteId: number;
   userChanged=new Subject<User[]>;
+  userChangedTwo=new Subject<User[]>;
 
   constructor(
     private httpClient: HttpClient,
     private modalService: NgbModal,
     private formBuilder: FormBuilder
   ) {
-    
+
   }
   ngOnInit() {
     this.editForm = this.formBuilder.group({
@@ -36,8 +37,15 @@ export class UserService implements OnInit {
   }
 
   getUsers() {
-    this.httpClient.get<any>("api/users").subscribe((data) => {
+    return this.httpClient.get<User[]>("api/users").subscribe((data) => {
       this.userChanged.next(data);
+    });
+
+  }
+
+  getListOfManagers() {
+    return this.httpClient.get<any>("api/users/managers").subscribe((data) => {
+      this.userChangedTwo.next(data);
     });
 
   }

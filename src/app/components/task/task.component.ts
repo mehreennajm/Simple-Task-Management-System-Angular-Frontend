@@ -21,11 +21,12 @@ export class TaskComponent implements OnInit {
   selectedUser : User;
   @ViewChild('f') form: NgForm;
   dtOptions: any = {};
+  
 
   constructor(
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef, 
-    private userService: UserService,
+    public userService: UserService,
     private taskService: TaskService,
   ) {}
 
@@ -44,11 +45,10 @@ export class TaskComponent implements OnInit {
           order:[[1,"desc"]]
       } );
       });
-    this.userService.getUsers();
-    this.userService.userChanged.subscribe((u) => {
+    this.userService.getListOfManagers();
+    this.userService.userChangedTwo.subscribe((u) => {
       this.users = u
     });
-
   }
   
   task:Task;

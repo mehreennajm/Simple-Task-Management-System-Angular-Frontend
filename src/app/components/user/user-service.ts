@@ -23,9 +23,7 @@ export class UserService implements OnInit {
     private httpClient: HttpClient,
     private modalService: NgbModal,
     private formBuilder: FormBuilder
-  ) {
-
-  }
+  ) {}
   ngOnInit() {
     this.editForm = this.formBuilder.group({
       id: [""],
@@ -37,7 +35,7 @@ export class UserService implements OnInit {
   }
 
   getUsers() {
-    return this.httpClient.get<User[]>("api/users").subscribe((data) => {
+    return this.httpClient.get<any>("api/users").subscribe((data) => {
       this.userChanged.next(data);
     });
 

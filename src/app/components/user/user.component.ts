@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { Subject } from 'rxjs';
 import { User } from 'src/app/models/user-model';
 
 @Component({
@@ -13,6 +12,7 @@ import { User } from 'src/app/models/user-model';
 })
 export class UserComponent implements OnInit {
   users: User[];
+  data:any;
   dtOptions: any = {};
   selectedDep : string = "";
   @ViewChild('f') f: NgForm;
@@ -28,17 +28,19 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers();
     this.userService.userChanged.subscribe((u) => {
-      this.users = u;                         
+      this.data = u;
+      setTimeout(()=>{                          
         $('#dataableUsers').DataTable( {
           pagingType: 'full_numbers',
           pageLength: 5,
           processing: true,
-          destroy: true,
           lengthMenu : [5, 10, 25],
-      });
-      });
+          order:[[1,"desc"]],
+      } );
+      }, 1);
+    });
+    }
 
-  }
   
   open(content: any) {
     this.userService.openCreateModal(content);

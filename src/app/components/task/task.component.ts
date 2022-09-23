@@ -41,6 +41,7 @@ export class TaskComponent implements OnInit {
           pagingType: 'full_numbers',
           pageLength: 5,
           processing: true,
+          retrieve: true,
           lengthMenu : [5, 10, 25],
           order:[[1,"desc"]],
       } );

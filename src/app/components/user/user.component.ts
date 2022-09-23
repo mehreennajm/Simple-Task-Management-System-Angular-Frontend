@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
@@ -34,11 +34,12 @@ export class UserComponent implements OnInit {
           pagingType: 'full_numbers',
           pageLength: 5,
           processing: true,
+          retrieve:true,
           lengthMenu : [5, 10, 25],
-          order:[[1,"desc"]],
-      } );
-      }, 1);
+        });
+      },1);
     });
+   
     }
 
   
@@ -52,7 +53,7 @@ export class UserComponent implements OnInit {
 
   onSubmit(f: NgForm) {
    this.userService.onSubmitUser(f);
-   this.ngOnInit();
+   this.userService.getUsers();
   }
 
 
@@ -72,6 +73,6 @@ export class UserComponent implements OnInit {
 
   onDelete() {
     this.userService.onDeleteUser();
-    this.ngOnInit();
+    this.userService.getUsers();
   }
 }

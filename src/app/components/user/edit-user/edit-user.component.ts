@@ -45,8 +45,8 @@ export class EditUserComponent implements OnInit {
         onSave(user:User) {
         this.userService.onUpdateUser(user).subscribe((results) => {
         this.user = results;
-        this.userService.getUsers();
         this.bsModalRef.hide();
+        this.userService.getUsers();
         }); 
         }
 

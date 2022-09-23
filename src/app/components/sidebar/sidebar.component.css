@@ -1,0 +1,11 @@
+.container{
+  border-radius: 25px;
+  background: #100d47;;
+  padding: 20px;
+  width: 200px;
+  height: 350px;
+}
+.mg-top{
+    margin-top: 30%;
+   
+}

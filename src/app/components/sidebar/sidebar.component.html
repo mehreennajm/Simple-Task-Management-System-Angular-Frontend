@@ -2,10 +2,10 @@
 <div class="list-group">
  
   
-  <a class="list-group-item list-group-item-action" routerLink="/users" *ngIf="authService.roleMatch('ROLE_ADMIN')"routerLinkActive="active">
+  <a class="list-group-item list-group-item-action" routerLink="/users" routerLinkActive="active" *ngIf="(authService.roleMatch(['ROLE_ADMIN'])) && !authService.roleMatch(['ROLE_MANAGER'])" >
     <i class="fa fa-user"></i> Users</a>
     
-  <a class="list-group-item list-group-item-action"routerLink="/tasks" routerLinkActive="active" *ngIf="authService.roleMatch('ROLE_MANAGER')">
+  <a class="list-group-item list-group-item-action"routerLink="/tasks" routerLinkActive="active"  *ngIf="authService.roleMatch(['ROLE_MANAGER'])">
    <i class="fa fa-task"></i> Tasks</a>
 
 </div>

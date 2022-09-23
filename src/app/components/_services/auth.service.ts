@@ -22,14 +22,16 @@ export class AuthService {
     return this.httpClient.post(this.PATH_OF_API+ '/authenticate',loginData,{headers:this.requestHeader});
   }
 
-  public roleMatch(allowedRole:string): boolean | undefined {
+  public roleMatch(allowedRole:any): boolean | undefined {
     let isMatch = false;
-    const userRole:string = this.userAuthService.getRoles();
+    const userRole: any = this.userAuthService.getRoles();
     try {
-        if (userRole != null && userRole == allowedRole)
+        if (userRole != null && userRole)
         {
-          isMatch = true;
-          return isMatch
+          for (let i = 0; i < userRole.length; i++) {
+            isMatch = true;
+            return isMatch
+          }
         }
         else{
           return isMatch;

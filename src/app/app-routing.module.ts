@@ -11,8 +11,8 @@ import { AuthGuard } from './components/_auth/auth.guard';
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'login',redirectTo:''},
-  {path:'users',component:UserComponent,canActivate:[AuthGuard], data: {role:'ROLE_ADMIN'}},
-  {path:'tasks',component:TaskComponent,canActivate:[AuthGuard], data: {role:'ROLE_MANAGER'}},
+  {path:'users',component:UserComponent,canActivate:[AuthGuard], data: {roles:['ROLE_ADMIN']}},
+  {path:'tasks',component:TaskComponent,canActivate:[AuthGuard], data: {roles:['ROLE_MANAGER','ROLE_ADMIN']}},
   { path: 'forbidden', component: ForbiddenComponent },
   {path: '**', component:PageNotFoundComponent},
   

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { User } from 'src/app/models/user-model';
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from '../user/user-service';
 import { Task } from 'src/app/models/task-model';
 import { TaskService } from './task-service';

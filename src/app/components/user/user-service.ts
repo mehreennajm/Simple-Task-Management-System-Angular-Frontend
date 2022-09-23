@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { Observable, Subject } from "rxjs";
 import { User } from "src/app/models/user-model";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class UserService implements OnInit {
@@ -22,7 +23,8 @@ export class UserService implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private modalService: NgbModal,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService 
   ) {}
   ngOnInit() {
     this.editForm = this.formBuilder.group({
@@ -74,6 +76,7 @@ export class UserService implements OnInit {
   onSubmitUser(f: NgForm) {
     const url = "api/users/add-user";
     this.httpClient.post(url, f.value).subscribe((results) => {
+      this.toastr.success("User has been added successfully!");
       this.getUsers();
       this.modalService.dismissAll();
     });
@@ -95,6 +98,7 @@ export class UserService implements OnInit {
   onDeleteUser() {
     const deleteURL = "api/users/" + this.deleteId + "/delete";
     this.httpClient.delete(deleteURL).subscribe((results) => {
+      this.toastr.success("User has been deleted successfully!")
       this.getUsers();
       this.modalService.dismissAll();
     });

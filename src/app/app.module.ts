@@ -19,7 +19,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthService } from './components/_services/auth.service';
 import { UserAuthService } from './components/_services/user-auth.service';
 import { AuthInterceptor } from './components/_auth/auth.intercepter';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -41,6 +42,8 @@ import { AuthInterceptor } from './components/_auth/auth.intercepter';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     
     
   ],

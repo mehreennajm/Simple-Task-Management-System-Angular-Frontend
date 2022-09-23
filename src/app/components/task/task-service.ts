@@ -5,6 +5,7 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject } from "rxjs";
 import { User } from "src/app/models/user-model";
 import { Task } from 'src/app/models/task-model';
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class TaskService implements OnInit {
@@ -20,7 +21,8 @@ export class TaskService implements OnInit {
     constructor(
       private httpClient: HttpClient,
       private modalService: NgbModal,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private toastr: ToastrService 
     ) {}
   
     ngOnInit(): void {
@@ -69,6 +71,7 @@ export class TaskService implements OnInit {
     onSubmit(form: NgForm) {
       const url = "api/tasks/add-task";
       this.httpClient.post(url, form.value).subscribe((result) => {
+        this.toastr.success("A new task has been added successfully!")
         this.getTasks(); //reload the table
         this.modalService.dismissAll(); //dismiss the modal
       });
@@ -100,6 +103,7 @@ export class TaskService implements OnInit {
     onDelete() {
       const deleteURL = "api/tasks/" + this.deleteId + "/delete";
       this.httpClient.delete(deleteURL).subscribe((results) => {
+        this.toastr.success("Deleted successfully!");
         this.getTasks();
         this.modalService.dismissAll();
       });

@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user-model';
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { TaskService } from '../task-service';
 import { Task } from 'src/app/models/task-model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-task',
@@ -29,7 +30,8 @@ export class EditTaskComponent implements OnInit {
   constructor(
     private bsModalRef: BsModalRef,
     private taskService: TaskService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService 
   ) {
     this.editForm = this.formBuilder.group({
       taskId: [null, Validators.required],
@@ -56,6 +58,7 @@ export class EditTaskComponent implements OnInit {
 
   onSave(task:Task) {
     this.taskService.onUpdateTask(task).subscribe((results) => {
+      this.toastr.success("Updated the task successfully!");
       this.taskService.getTasks();
       this.bsModalRef.hide();
     });

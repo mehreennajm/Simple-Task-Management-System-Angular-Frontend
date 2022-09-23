@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user-model';
 import { UserService } from '../user-service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,7 +15,9 @@ export class EditUserComponent implements OnInit {
   
   constructor(private bsModalRef: BsModalRef,
     private userService: UserService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService 
+    ) {
 
       this.editForm =  this.formBuilder.group({
         userId: [null,Validators.required],
@@ -44,7 +47,13 @@ export class EditUserComponent implements OnInit {
 
         onSave(user:User) {
         this.userService.onUpdateUser(user).subscribe((results) => {
-        this.user = results;
+        if( this.user = results){
+          this.toastr.success("Updated successfully!")
+        }
+        else{
+          this.toastr.error("Something went wrong!");
+        }
+       
         this.bsModalRef.hide();
         this.userService.getUsers();
         }); 

@@ -4,6 +4,7 @@ import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { User } from 'src/app/models/user-model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,9 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private bsModalService: BsModalService,
-    public bsModalRef: BsModalRef, 
+    public bsModalRef: BsModalRef,
+    private toastr: ToastrService 
+   
   ) {}
 
   
@@ -54,6 +57,7 @@ export class UserComponent implements OnInit {
   onSubmit(f: NgForm) {
    this.userService.onSubmitUser(f);
    this.userService.getUsers();
+   
   }
 
 
@@ -75,4 +79,6 @@ export class UserComponent implements OnInit {
     this.userService.onDeleteUser();
     this.userService.getUsers();
   }
+
+ 
 }

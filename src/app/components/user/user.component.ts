@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -17,15 +17,26 @@ export class UserComponent implements OnInit {
   dtOptions: any = {};
   selectedDep : string = "";
   @ViewChild('f') f: NgForm;
+  submitForm:FormGroup;
 
 
   constructor(
     private userService: UserService,
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef,
-    private toastr: ToastrService 
+    private formBuilder: FormBuilder
    
-  ) {}
+  ) {
+    this.submitForm =  this.formBuilder.group({
+      userId: [null,Validators.required],
+      firstName: ['',Validators.required],
+      lastName:['',Validators.required],
+      email:['',Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")],
+      password:['',Validators.required],
+      role: ['',Validators.required],
+      
+    });
+  }
 
   
   ngOnInit(): void {
@@ -54,8 +65,8 @@ export class UserComponent implements OnInit {
     this.userService.getDismissReason(reason);
   }
 
-  onSubmit(f: NgForm) {
-   this.userService.onSubmitUser(f);
+  onSubmit(user:User) {
+   this.userService.onSubmitUser(user);
    this.userService.getUsers();
    
   }

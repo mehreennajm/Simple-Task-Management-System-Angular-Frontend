@@ -23,7 +23,7 @@ export class EditUserComponent implements OnInit {
         userId: [null,Validators.required],
         firstName: ['',Validators.required],
         lastName:['',Validators.required],
-        username:['',Validators.required],
+        email:['',Validators.required],
         password:['',Validators.required],
         role: ['',Validators.required],
         
@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit {
         userId: this.user.userId,
         firstName: this.user.firstName,
         lastName: this.user.lastName,
-        username: this.user.username,
+        email: this.user.email,
         password: this.user.password,
         role: this.user.role
         })

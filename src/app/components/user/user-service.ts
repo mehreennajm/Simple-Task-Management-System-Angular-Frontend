@@ -31,7 +31,7 @@ export class UserService implements OnInit {
       id: [""],
       firstName: [""],
       lastName: [""],
-      username: [""],
+      email: [""],
       role: [""],
     });
   }
@@ -73,9 +73,9 @@ export class UserService implements OnInit {
     }
   }
 
-  onSubmitUser(f: NgForm) {
+  onSubmitUser(user:User) {
     const url = "api/users/add-user";
-    this.httpClient.post(url, f.value).subscribe((results) => {
+    this.httpClient.post(url,user).subscribe((results) => {
       this.toastr.success("User has been added successfully!");
       this.getUsers();
       this.modalService.dismissAll();

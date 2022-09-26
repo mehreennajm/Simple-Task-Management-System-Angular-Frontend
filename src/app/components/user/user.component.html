@@ -16,7 +16,7 @@
                   <th>ID</th>
                   <th>First name</th>
                   <th>Last name</th>
-                  <th>Username</th>
+                  <th>Email:</th>
                   <th>Role</th>
                   <th>Actions</th>
                 </tr>
@@ -26,7 +26,7 @@
                   <td><span>{{i+1}}</span></td>
                   <td><span>{{user.firstName}}</span></td>
                   <td><span>{{user.lastName}}</span></td>
-                  <td><span>{{user.username}}</span></td>
+                  <td><span>{{user.email}}</span></td>
                   <td><span>{{user.role}}</span></td>
                   <td>
                       <button class="btn btn-sm btn-warning" (click)="openEdit(user)">
@@ -51,46 +51,69 @@
             </button>
           </div>
           <div class="modal-body">
-            <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <form [formGroup]="submitForm">
               <div class="form-group">
                 <label>First name:</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="firstName" ngModel required>
+                  <input type="text" class="form-control" formControlName="firstName">
+                </div>
+                <div>
+                  <span class="text-danger" *ngIf="!submitForm.get('firstName')?.valid &&
+                  submitForm.get('firstName')?.touched">Please Enter the First name!</span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Last name:</label>
                 <div class="input-group">
-                  <input class="form-control" name="lastName" ngModel required>
+                  <input type="text" class="form-control" formControlName="lastName">
                 </div>
+                <div>
+                  <span class="text-danger" *ngIf="!submitForm.get('lastName')?.valid &&
+                  submitForm.get('lastName')?.touched">Please Enter the Last name!</span>
+                </div>
+
               </div>
               <div class="form-group">
-                <label for="name">Username</label>
+                <label for="email">Email Address:</label>
                 <div class="input-group">
-                  <input class="form-control" name="username" ngModel required>
+                  <input type="email" class="form-control"  formControlName="email">
+                </div>
+                <div>
+                  <span class="text-danger" *ngIf="!submitForm.get('email')?.valid &&
+                  submitForm.get('email')?.touched">Please Enter the VALID email address!</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="name">Password:</label>
                 <div class="input-group">
-                  <input type="password" class="form-control" name="password" ngModel required>
+                  <input type="password" class="form-control" formControlName="password">
                 </div>
+                <div>
+                  <span class="text-danger" *ngIf="!submitForm.get('password')?.valid &&
+                    submitForm.get('password')?.touched">Please Select the user role!
+                  </span>
+                  </div>
               </div>
 
               <div class="form-group">
                 <label>Role:</label>
                 <div class="input-group">
-                  <select name="role" ngModel>
+                  <select formControlName="role">
                     <option value="" disabled>Select the user role</option>
                     <option value="ROLE_ADMIN"> ADMIN</option>
                     <option value="ROLE_MANAGER">MANAGER</option>
                     <option value="ROLE_USER"> USER</option>
                   </select>
                 </div>
+                <div>
+                  <span class="text-danger" *ngIf="!submitForm.get('role')?.valid &&
+                    submitForm.get('role')?.touched">Please Select the user role!
+                  </span>
+                  </div>
               </div>
 
                 <div class="modal-footer">
-                  <button data-dismiss="modal" class="btn btn-info" [disabled]="!f.valid" >Submit</button>
+                  <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit(submitForm.value)">Submit</button>
                   <button  type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
                 </div>
             </form>

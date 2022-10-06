@@ -21,6 +21,8 @@ import { UserAuthService } from './components/_services/user-auth.service';
 import { AuthInterceptor } from './components/_auth/auth.intercepter';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EditUserComponent,
     EditTaskComponent,
     HomeComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     DataTablesModule,

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user-model';
 
 @Component({
@@ -12,10 +11,9 @@ import { User } from 'src/app/models/user-model';
 export class ForgotPasswordComponent implements OnInit {
   submitForgetForm:FormGroup;
   showMsg: boolean = false;
-  showMsg1: boolean = false;
+  errMsg:string ='';
 
   constructor(private http:HttpClient,
-              private toastr: ToastrService,
               private formBuilder: FormBuilder ) { }
 
   ngOnInit(): void {
@@ -26,15 +24,15 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(user:User) {
       const url = "api/forgot_password";
-      const k = this.http.post(url,user).subscribe((results) => {
-        
+      this.http.post(url,user).subscribe( 
+      (next)=>{
+        this.submitForgetForm.reset();
+        this.showMsg = true;
+      }
+      ,
+      (err) => {
+        this.errMsg = err;
       });
-      if(k){
-        this.showMsg= true;
-      }
-      else{
-        this.showMsg1 = true;
-      }
    }
 
 }

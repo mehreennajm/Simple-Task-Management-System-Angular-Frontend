@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user-model';
 
 @Component({
   selector: 'app-reset-password',
@@ -6,18 +10,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
+  resetForm:FormGroup;
 
-  constructor() { }
+  user: User;
+  constructor(private http:HttpClient,
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.resetForm =  this.formBuilder.group({
+      password: ['',Validators.required],
+      });
+
+     
   }
 
-  checkPasswordMatch(fieldConfirmPassword:any) {
-    if (fieldConfirmPassword.value != $("#confirm").val()) {
-        fieldConfirmPassword.setCustomValidity("Passwords do not match!");
-    } else {
-        fieldConfirmPassword.setCustomValidity("");
-    }
-}
+
+ 
+  onResetPassword(user: User){
+    const url = "api/reset_password";
+      this.http.put(url,user).subscribe((result)=>{
+        this.router.navigate(['/login']);
+       
+        console.log(result);
+      })
+  }
+
+
+
 
 }

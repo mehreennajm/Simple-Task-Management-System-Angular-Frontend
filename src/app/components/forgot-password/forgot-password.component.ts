@@ -30,9 +30,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.showMsg = true;
       }
       ,
-      (err) => {
-        this.errMsg = err;
-      });
+      );
    }
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user-model';
 
 @Component({
@@ -11,27 +11,31 @@ import { User } from 'src/app/models/user-model';
 })
 export class ResetPasswordComponent implements OnInit {
   resetForm:FormGroup;
-
-  user: User;
+  
+   token = '';
+   user: User;
   constructor(private http:HttpClient,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.resetForm =  this.formBuilder.group({
+      resetToken:[''],
       password: ['',Validators.required],
       });
-
-     
+      
+      this.activeRoute.queryParams.subscribe((queryParam)=>{
+        this.token = queryParam['token'];
+      })
   }
 
 
+
+
  
-  onResetPassword(user: User){
+  onResetPassword(user:User){
     const url = "api/reset_password";
-      this.http.put(url,user).subscribe((result)=>{
-        this.router.navigate(['/login']);
-       
+      this.http.post(url,user).subscribe((result)=>{
         console.log(result);
       })
   }

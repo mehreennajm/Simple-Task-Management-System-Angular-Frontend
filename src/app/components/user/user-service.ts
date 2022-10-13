@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
 import {OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   FormBuilder,
   FormGroup,
-  NgForm,
 } from "@angular/forms";
 import { Observable, Subject } from "rxjs";
 import { User } from "src/app/models/user-model";
@@ -19,6 +18,8 @@ export class UserService implements OnInit {
   deleteId: number;
   userChanged=new Subject<User[]>;
   userChangedTwo=new Subject<User[]>;
+
+  
 
   constructor(
     private httpClient: HttpClient,
@@ -73,7 +74,8 @@ export class UserService implements OnInit {
     }
   }
 
-  onSubmitUser(user:User) {
+ 
+  onSubmitUser(user:FormData) {
     const url = "api/users/add-user";
     this.httpClient.post(url,user).subscribe((results) => {
       this.toastr.success("User has been added successfully!");

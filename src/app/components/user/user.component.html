@@ -18,6 +18,7 @@
                   <th>Last name</th>
                   <th>Email:</th>
                   <th>Role</th>
+                  <th>Profile</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
@@ -28,6 +29,7 @@
                   <td><span>{{user.lastName}}</span></td>
                   <td><span>{{user.email}}</span></td>
                   <td><span>{{user.role}}</span></td>
+                  <td><img src=""></td>
                   <td>
                       <button class="btn btn-sm btn-warning" (click)="openEdit(user)">
                         <i class="fa fa-edit"></i></button> &nbsp;
@@ -51,7 +53,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form [formGroup]="submitForm">
+            <form [formGroup]="submitForm" enctype="multipart/form-data">
               <div class="form-group">
                 <label>First name:</label>
                 <div class="input-group">
@@ -100,9 +102,9 @@
                 <div class="input-group">
                   <select formControlName="role">
                     <option value="" disabled>Select the user role</option>
-                    <option value="ROLE_ADMIN"> ADMIN</option>
-                    <option value="ROLE_MANAGER">MANAGER</option>
-                    <option value="ROLE_USER"> USER</option>
+                    <option value="ROLE_ADMIN"> ROLE_ADMIN</option>
+                    <option value="ROLE_MANAGER">ROLE_MANAGER</option>
+                    <option value="ROLE_USER"> ROLE_USER</option>
                   </select>
                 </div>
                 <div>
@@ -112,8 +114,20 @@
                   </div>
               </div>
 
+              <div class="form-group">
+                <label>Profile Picture:</label>
+                <div class="input-group">
+                  <input type="file" class="form-control"  id="profilePhoto" formControlName="profilePhoto" (change)="onFileChange($event)">
+                </div>
+                <div>
+                  <span class="text-danger" *ngIf="!submitForm.get('profilePhoto')?.valid &&
+                  submitForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
+                </div>
+
+              </div>
+
                 <div class="modal-footer">
-                  <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit(submitForm.value)">Submit</button>
+                  <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit()">Submit</button>
                   <button  type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
                 </div>
             </form>

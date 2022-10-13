@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { User } from 'src/app/models/user-model';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user',
@@ -16,31 +17,34 @@ export class UserComponent implements OnInit {
   data:any;
   dtOptions: any = {};
   selectedDep : string = "";
-  @ViewChild('f') f: NgForm;
-  submitForm:FormGroup;
 
+  // form group
+  submitForm: FormGroup;
+  fileHolder: File | null;
 
   constructor(
     private userService: UserService,
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    
    
   ) {
-    this.submitForm =  this.formBuilder.group({
-      userId: [null,Validators.required],
-      firstName: ['',Validators.required],
-      lastName:['',Validators.required],
-      email:['',Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")],
-      password:['',Validators.required],
+    this.submitForm = this.formBuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['',Validators.required],
+      email: ['',Validators.email],
+      password: ['',Validators.required],
       role: ['',Validators.required],
-      
+      profilePhoto: [''],
+      fileSource: [null],
     });
   }
 
-  
+
   ngOnInit(): void {
     this.userService.getUsers();
+
     this.userService.userChanged.subscribe((u) => {
       this.data = u;
       setTimeout(()=>{                          
@@ -65,8 +69,25 @@ export class UserComponent implements OnInit {
     this.userService.getDismissReason(reason);
   }
 
-  onSubmit(user:User) {
-   this.userService.onSubmitUser(user);
+  // on file select event
+  onFileChange(event:any) {
+    if (event.target.files.length > 0) {
+      this.fileHolder = event.target.files[0];
+      this.submitForm.patchValue({
+        fileSource: this.fileHolder
+      });
+      console.log(this.fileHolder);
+    }
+  }
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('profilePhoto', this.submitForm.get('fileSource')?.value);
+    formData.append('firstName', this.submitForm.get('firstName')?.value);
+    formData.append('lastName', this.submitForm.get('lastName')?.value);
+    formData.append('password', this.submitForm.get('password')?.value);
+    formData.append('email', this.submitForm.get('email')?.value);
+    formData.append('role', this.submitForm.get('role')?.value);
+   this.userService.onSubmitUser(formData);
    this.userService.getUsers();
    
   }

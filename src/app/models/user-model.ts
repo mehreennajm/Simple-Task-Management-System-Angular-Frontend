@@ -7,5 +7,6 @@ export class User {
       public password: string,
       public role: string,
       public resetPasswordToken:string,
+      public profilePhoto:string
     ) {}
   }

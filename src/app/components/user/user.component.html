@@ -29,7 +29,7 @@
                   <td><span>{{user.lastName}}</span></td>
                   <td><span>{{user.email}}</span></td>
                   <td><span>{{user.role}}</span></td>
-                  <td><img src=""></td>
+                  <td ></td>
                   <td>
                       <button class="btn btn-sm btn-warning" (click)="openEdit(user)">
                         <i class="fa fa-edit"></i></button> &nbsp;
@@ -123,7 +123,7 @@
                   <span class="text-danger" *ngIf="!submitForm.get('profilePhoto')?.valid &&
                   submitForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
                 </div>
-
+                <div><img [src]="url" *ngIf="url" class="img-responsive img-thumbnail"></div>
               </div>
 
                 <div class="modal-footer">

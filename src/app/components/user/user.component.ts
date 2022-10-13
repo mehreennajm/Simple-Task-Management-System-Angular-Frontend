@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { EmailValidator, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { User } from 'src/app/models/user-model';
-import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -17,19 +16,19 @@ export class UserComponent implements OnInit {
   data:any;
   dtOptions: any = {};
   selectedDep : string = "";
+  url: any;
+  msg="";
 
   // form group
   submitForm: FormGroup;
-  fileHolder: File | null;
 
   constructor(
     private userService: UserService,
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef,
     private formBuilder: FormBuilder,
-    
-   
-  ) {
+    private readonly sanitizer: DomSanitizer) 
+    {
     this.submitForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['',Validators.required],
@@ -65,19 +64,27 @@ export class UserComponent implements OnInit {
     this.userService.openCreateModal(content);
   }
 
-  private getDismissReason(reason: any){
-    this.userService.getDismissReason(reason);
-  }
-
   // on file select event
   onFileChange(event:any) {
     if (event.target.files.length > 0) {
-      this.fileHolder = event.target.files[0];
+       const fileHolder = event.target.files[0];
       this.submitForm.patchValue({
-        fileSource: this.fileHolder
-      });
-      console.log(this.fileHolder);
+        fileSource: fileHolder
+      });  
     }
+    var mimeType = event.target.files[0].type;
+		
+		if (mimeType.match(/image\/*/) == null) {
+			this.msg = "Only images are supported";
+			return;
+		}
+    var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		
+		reader.onload = (_event) => {
+			this.msg = "";
+			this.url = reader.result; 
+		}
   }
   onSubmit() {
     const formData = new FormData();

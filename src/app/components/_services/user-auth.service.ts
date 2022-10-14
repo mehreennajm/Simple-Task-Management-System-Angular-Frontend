@@ -10,8 +10,8 @@ export class UserAuthService {
     localStorage.setItem('roles', JSON.stringify(roles));
   }
 
-  public getRoles(): [] {
-    return JSON.parse(localStorage.getItem('roles')|| '{}');
+  public getRoles(){
+    return JSON.parse(localStorage.getItem("roles")|| '');
   }
 
   public setToken(jwtToken: string) {

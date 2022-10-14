@@ -26,8 +26,7 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef,
-    private formBuilder: FormBuilder,
-    private readonly sanitizer: DomSanitizer) 
+    private formBuilder: FormBuilder,) 
     {
     this.submitForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],

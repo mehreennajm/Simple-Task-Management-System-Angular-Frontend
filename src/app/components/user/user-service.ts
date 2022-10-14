@@ -85,8 +85,8 @@ export class UserService implements OnInit {
   }
 
 
-  onUpdateUser(user: User): Observable<any> {
-    return this.httpClient.put(`api/users/${user.userId}/edit`, user);
+  onUpdateUser(formData:FormData): Observable<any> {
+    return this.httpClient.put(`api/users/${formData.get('userId')}/edit`, formData);
   }
 
   openDeleteModal(targetModal: any, user: User) {

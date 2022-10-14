@@ -11,7 +11,12 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  @Input() selectedStatus = "";
+  @Input() selectedRole = "";
+  @Input()
+  user: User;
+  editForm: FormGroup;
+  url: any;
+  msg="";
   
   constructor(private bsModalRef: BsModalRef,
     private userService: UserService,
@@ -26,32 +31,68 @@ export class EditUserComponent implements OnInit {
         email:['',Validators.required],
         password:['',Validators.required],
         role: ['',Validators.required],
+        profilePhoto: [''],
+        fileSource: [null],
         
       });
 
+      
     }
     
-        @Input()
-        user: User;
-        editForm: FormGroup;
-        ngOnInit(): void {
+
+  ngOnInit(): void {
         this.editForm.patchValue({
         userId: this.user.userId,
         firstName: this.user.firstName,
         lastName: this.user.lastName,
         email: this.user.email,
         password: this.user.password,
-        role: this.user.role
+        role: this.user.role,
+        profilePhoto:this.user.profilePhoto
         })
-        }
+    }
+        // on file select event
+  onFileChange(event:any) {
+    if (event.target.files.length > 0) {
+       const fileHolder = event.target.files[0];
+      this.editForm.patchValue({
+        fileSource: fileHolder
+      });  
+    }
+    var mimeType = event.target.files[0].type;
+		
+		if (mimeType.match(/image\/*/) == null) {
+			this.msg = "Only images are supported";
+			return;
+		}
+    var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		
+		reader.onload = (_event) => {
+			this.msg = "";
+			this.url = reader.result; 
+		}
+  }
 
-        onSave(user:User) {
-        this.userService.onUpdateUser(user).subscribe((results) => {
+        onSave() {
+        const form = new FormData();
+       form.append('userId', this.editForm.get('userId')?.value);
+        form.append('profilePhoto', this.editForm.get('fileSource')?.value);
+        form.append('firstName', this.editForm.get('firstName')?.value);
+        form.append('lastName', this.editForm.get('lastName')?.value);
+        form.append('password', this.editForm.get('password')?.value);
+        form.append('email', this.editForm.get('email')?.value);
+        form.append('role', this.editForm.get('role')?.value);
+        
+      
+        this.userService.onUpdateUser(form).subscribe((results) => {
         if( this.user = results){
           this.toastr.success("Updated successfully!")
+          console.log(results)
         }
         else{
           this.toastr.error("Something went wrong!");
+          console.log(results)
         }
        
         this.bsModalRef.hide();

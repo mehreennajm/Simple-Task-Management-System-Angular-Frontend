@@ -3,7 +3,7 @@
     <h4 class="modal-title" id="modal-basic-title-edit">Update User</h4>
   </div>
   <div class="modal-body">
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" (ngSubmit)="onSave()">
       <input type="hidden" class="form-control" formControlName="userId">
       <div class="form-group">
         <label>First name:</label>
@@ -42,7 +42,7 @@
       <div class="form-group">
         <label>User role:</label>
         <div class="input-group">
-          <select formControlName="role" [ngModel]="selectedStatus">
+          <select formControlName="role">
             <option value="ROLE_ADMIN"> ADMIN</option>
             <option value="ROLE_MANAGER"> MANAGER</option>
             <option value="ROLE_USER"> USER</option>
@@ -55,8 +55,21 @@
           </div>
       </div>
 
+      <div class="form-group">
+        <label>Profile Picture:</label>
+      
+        <div class="input-group">
+          <input type="file" class="form-control"   (change)="onFileChange($event)">
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!editForm.get('profilePhoto')?.valid &&
+          editForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
+        </div>
+        <div><img [src]="url" *ngIf="url" class="img-responsive img-thumbnail"></div>
+      </div>
+
         <div class="modal-footer">
-          <button data-dismiss="modal" class="btn btn-info" (click)="onSave(editForm.value)">Save changes</button>
+          <button type="submit" data-dismiss="modal" class="btn btn-info">Save changes</button>
           <button  type="button" class="btn btn-danger" (click)="onClose()">Close</button>
         </div>
     </form>

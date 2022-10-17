@@ -22,11 +22,20 @@ export class UserAuthService {
     return localStorage.getItem('jwtToken');
   }
 
+  public setUsername(username: string) {
+    localStorage.setItem('LoggedInStatus', username);
+  }
+  
+  public getUsername(): string | null{
+    return localStorage.getItem('LoggedInStatus');
+  }
+
   public clear() {
     localStorage.clear();
   }
 
   public isLoggedIn() {
     return this.getRoles() && this.getToken();
+    
   }
 }

@@ -2,12 +2,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <p class="alert text-bg-light text-center w-100 ">Logged in as: {{userDisplayName}}</p>
+    </div>
+    <div class="col-md-12">
       <h1 class="btn btn-warning text-center w-100 " style="font-size: 2em;">Menu</h1>
     </div>
     <div class="col-md-12 mg-top">
       <div class="list-group">
         <a class="list-group-item list-group-item-action" routerLink="/users" routerLinkActive="active" *ngIf="(authService.roleMatch(['ROLE_ADMIN']) && !authService.roleMatch(['ROLE_MANAGER']))" >
           <i class="fa fa-group"></i> Users
+         
         </a>
         
         <a class="list-group-item list-group-item-action"routerLink="/tasks" routerLinkActive="active"  *ngIf="authService.roleMatch(['ROLE_MANAGER']) || authService.roleMatch(['ROLE_ADMIN'])">
@@ -17,6 +21,7 @@
         <div class="btn-sign-out">
           <a class="btn btn-danger w-100" (click)="logout()"><i class="fa fa-sign-out"></i>Sign out</a>
         </div>
+        
       </div>
     </div>
 

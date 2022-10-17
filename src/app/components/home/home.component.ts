@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
       next: (response:any)=>{
         this.userAuthService.setRoles(response.user.role);
         this.userAuthService.setToken(response.jwtToken);
+        this.userAuthService.setUsername(response.user.firstName + ' ' + response.user.lastName);
         const role = response.user.role;
         if(role == 'ROLE_ADMIN'){
           this.router.navigate(['/users']);

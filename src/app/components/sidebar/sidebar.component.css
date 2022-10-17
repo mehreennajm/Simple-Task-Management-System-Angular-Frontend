@@ -1,11 +1,14 @@
 .container{
-  border-radius: 25px;
-  background: #100d47;;
+  border-radius: 12.5px;
+  background: #696868;;
   padding: 20px;
-  width: 200px;
-  height: 350px;
+  height: 380px;
 }
 .mg-top{
-    margin-top: 30%;
-   
+    margin-top: 10%;
+}
+
+.active{
+  background-color: #08355b;
+  border-color: #08355b;
 }

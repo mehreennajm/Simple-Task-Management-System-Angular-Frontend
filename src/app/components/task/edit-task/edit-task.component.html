@@ -71,13 +71,15 @@
         <label>User name:</label>
         <div class="input-group">
           <select formControlName="userr">
-            <option [selected]="selectedUser" >
+            <option [selected]="selectedUser" [ngValue]="selectedUser" >
               {{selectedUser}}
             </option>
             <option *ngFor="let user of users" [ngValue]="user">
               <p *ngIf="user.role === 'ROLE_USER'">{{user.firstName}} {{user.lastName}}</p>
             </option>
-          
+            <span class="text-danger" *ngIf="!editForm.get('userr')?.valid &&
+            editForm.get('userr')?.touched">Please Select the user role!
+          </span>
           </select>
         </div>
       </div>

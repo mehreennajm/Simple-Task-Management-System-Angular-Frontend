@@ -18,7 +18,7 @@ export class UserService implements OnInit {
   deleteId: number;
   userChanged=new Subject<User[]>;
   userChangedTwo=new Subject<User[]>;
-
+  imageUrl: string;
   
 
   constructor(
@@ -40,6 +40,7 @@ export class UserService implements OnInit {
   getUsers() {
     return this.httpClient.get<any>("api/users").subscribe((data) => {
       this.userChanged.next(data);
+     
     });
 
   }

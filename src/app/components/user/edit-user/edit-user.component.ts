@@ -17,6 +17,10 @@ export class EditUserComponent implements OnInit {
   editForm: FormGroup;
   url: any;
   msg="";
+  file_error:any;
+  selectedFile :File = null as any;
+  selectedFileName = '';
+  disable_file_uplaod_button:any = false;
   
   constructor(private bsModalRef: BsModalRef,
     private userService: UserService,
@@ -59,12 +63,25 @@ export class EditUserComponent implements OnInit {
         fileSource: fileHolder
       });  
     }
-    var mimeType = event.target.files[0].type;
-		
-		if (mimeType.match(/image\/*/) == null) {
-			this.msg = "Only images are supported";
-			return;
-		}
+
+    this.file_error = "";
+    this.selectedFile = event.target.files[0];
+    this.selectedFileName = this.selectedFile.name;
+    let ext = null;
+    if(this.selectedFile.size > 2000000){
+      this.disable_file_uplaod_button = false;
+      this.file_error = "Image Size must be less than 2 MB"
+    }
+   else{
+      ext = this.selectedFile.name.split('?')[0].split('.').pop();
+      if(ext=='png' || ext=='jpg' || ext=='jpeg' || ext=='gif' ){
+        this.disable_file_uplaod_button = true;
+      }else{
+        this.disable_file_uplaod_button = false;
+        this.file_error = "Please enter valid Image e.g (jpg, jpeg,png,gif)";
+      }
+    }
+   
     var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
 		

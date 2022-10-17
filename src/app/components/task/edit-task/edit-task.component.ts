@@ -23,7 +23,6 @@ export class EditTaskComponent implements OnInit {
   @Input() users: User[];
 
   @Input() selectedUser: User;
-
  
 
 
@@ -40,7 +39,7 @@ export class EditTaskComponent implements OnInit {
       dueDate: ["", Validators.required],
       status: [""],
       description: [""],
-      userr: [null],
+      userr: [null,Validators.required],
     });
   }
 
@@ -52,8 +51,9 @@ export class EditTaskComponent implements OnInit {
       dueDate: this.task.dueDate,
       status: this.task.status,
       description: this.task.description,
-      userr: this.task.userr,
+      userr:  this.task.userr,
     });
+
   }
 
   onSave(task:Task) {
@@ -61,6 +61,8 @@ export class EditTaskComponent implements OnInit {
       this.toastr.success("Updated the task successfully!");
       this.taskService.getTasks();
       this.bsModalRef.hide();
+      console.log(this.selectedUser)
+
     });
   }
 

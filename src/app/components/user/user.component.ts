@@ -18,6 +18,14 @@ export class UserComponent implements OnInit {
   selectedDep : string = "";
   url: any;
   msg="";
+  thumbnail: any;
+
+
+  file_error:any;
+  selectedFile :File = null as any;
+  selectedFileName = '';
+  disable_file_uplaod_button:any = false;
+
 
   // form group
   submitForm: FormGroup;
@@ -26,7 +34,8 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef,
-    private formBuilder: FormBuilder,) 
+    private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizer) 
     {
     this.submitForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -34,17 +43,17 @@ export class UserComponent implements OnInit {
       email: ['',Validators.email],
       password: ['',Validators.required],
       role: ['',Validators.required],
-      profilePhoto: [''],
-      fileSource: [null],
+      profilePhoto: ['',Validators.required],
+      fileSource: [null,Validators.required],
     });
   }
 
 
   ngOnInit(): void {
     this.userService.getUsers();
-
-    this.userService.userChanged.subscribe((u) => {
+    this.userService.userChanged.subscribe((u:any) => {
       this.data = u;
+     
       setTimeout(()=>{                          
         $('#dataableUsers').DataTable( {
           pagingType: 'full_numbers',
@@ -71,12 +80,23 @@ export class UserComponent implements OnInit {
         fileSource: fileHolder
       });  
     }
-    var mimeType = event.target.files[0].type;
-		
-		if (mimeType.match(/image\/*/) == null) {
-			this.msg = "Only images are supported";
-			return;
-		}
+    this.file_error = "";
+    this.selectedFile = event.target.files[0];
+    this.selectedFileName = this.selectedFile.name;
+    let ext = null;
+    if(this.selectedFile.size > 2000000){
+      this.disable_file_uplaod_button = false;
+      this.file_error = "Image Size must be less than 2 MB"
+    }
+   else{
+      ext = this.selectedFile.name.split('?')[0].split('.').pop();
+      if(ext=='png' || ext=='jpg' || ext=='jpeg' || ext=='gif' ){
+        this.disable_file_uplaod_button = true;
+      }else{
+        this.disable_file_uplaod_button = false;
+        this.file_error = "Please enter valid Image e.g (jpg, jpeg,png,gif)";
+      }
+    }
     var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
 		

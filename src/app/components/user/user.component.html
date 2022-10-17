@@ -29,7 +29,7 @@
                   <td><span>{{user.lastName}}</span></td>
                   <td><span>{{user.email}}</span></td>
                   <td><span>{{user.role}}</span></td>
-                  <td>{{user.profilePhoto}}</td>
+                  <td><img [src]="thumbnail"></td>
                   <td>
                       <button class="btn btn-sm btn-warning" (click)="openEdit(user)">
                         <i class="fa fa-edit"></i></button> &nbsp;
@@ -117,17 +117,21 @@
               <div class="form-group">
                 <label>Profile Picture:</label>
                 <div class="input-group">
-                  <input type="file" class="form-control"  id="profilePhoto" formControlName="profilePhoto" (change)="onFileChange($event)">
+                  <input type="file" class="form-control" 
+                  formControlName="profilePhoto"  (change)="onFileChange($event)">
                 </div>
                 <div>
+
                   <span class="text-danger" *ngIf="!submitForm.get('profilePhoto')?.valid &&
                   submitForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
+
+                  <span class="text-danger">{{file_error}}</span>
                 </div>
                 <div><img [src]="url" *ngIf="url" class="img-responsive img-thumbnail"></div>
               </div>
 
-                <div class="modal-footer">
-                  <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit()">Submit</button>
+                <div class="modal-footer" *ngIf="disable_file_uplaod_button">
+                  <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit()" [disabled]="!submitForm.valid">Submit</button>
                   <button  type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
                 </div>
             </form>

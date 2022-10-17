@@ -61,7 +61,6 @@ export class EditTaskComponent implements OnInit {
       this.toastr.success("Updated the task successfully!");
       this.taskService.getTasks();
       this.bsModalRef.hide();
-      console.log(this.selectedUser)
 
     });
   }

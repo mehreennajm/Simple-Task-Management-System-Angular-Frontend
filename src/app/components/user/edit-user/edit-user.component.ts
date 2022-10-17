@@ -14,6 +14,7 @@ export class EditUserComponent implements OnInit {
   @Input() selectedRole = "";
   @Input()
   user: User;
+  u:User;
   editForm: FormGroup;
   url: any;
   msg="";
@@ -92,8 +93,9 @@ export class EditUserComponent implements OnInit {
   }
 
         onSave() {
+     
         const form = new FormData();
-       form.append('userId', this.editForm.get('userId')?.value);
+        form.append('userId', this.editForm.get('userId')?.value);
         form.append('profilePhoto', this.editForm.get('fileSource')?.value);
         form.append('firstName', this.editForm.get('firstName')?.value);
         form.append('lastName', this.editForm.get('lastName')?.value);
@@ -101,19 +103,11 @@ export class EditUserComponent implements OnInit {
         form.append('email', this.editForm.get('email')?.value);
         form.append('role', this.editForm.get('role')?.value);
         
-      
         this.userService.onUpdateUser(form).subscribe((results) => {
-        if( this.user = results){
-          this.toastr.success("Updated successfully!")
-          console.log(results)
-        }
-        else{
-          this.toastr.error("Something went wrong!");
-          console.log(results)
-        }
        
-        this.bsModalRef.hide();
-        this.userService.getUsers();
+          this.toastr.success("Updated successfully!")
+          this.bsModalRef.hide();
+          this.userService.getUsers();
         }); 
         }
 

@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/models/user-model';
+import { ActivatedRoute} from '@angular/router';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -12,31 +12,32 @@ import { User } from 'src/app/models/user-model';
 export class ResetPasswordComponent implements OnInit {
   resetForm:FormGroup;
   
-   token = '';
-   user: User;
+   userToken = '';
+   
+   showMsg = false;
   constructor(private http:HttpClient,
     private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute) { }
 
+
+    
   ngOnInit(): void {
+    this.activeRoute.queryParams.subscribe((queryParam)=>{
+      this.userToken = queryParam['token'];
+    })
     this.resetForm =  this.formBuilder.group({
-      resetToken:[''],
       password: ['',Validators.required],
-      });
-      
-      this.activeRoute.queryParams.subscribe((queryParam)=>{
-        this.token = queryParam['token'];
-      })
+      });  
   }
 
 
 
 
  
-  onResetPassword(user:User){
-    const url = "api/reset_password";
-      this.http.post(url,user).subscribe((result)=>{
-        console.log(result);
+  onResetPassword(password:string){
+    const url = "api/reset_password?token="+this.userToken;
+      this.http.put(url,password).subscribe((result)=>{
+        this.showMsg = true;
       })
   }
 

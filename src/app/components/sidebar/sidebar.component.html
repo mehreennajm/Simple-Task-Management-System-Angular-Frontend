@@ -14,7 +14,7 @@
          
         </a>
         
-        <a class="list-group-item list-group-item-action"routerLink="/tasks" routerLinkActive="active"  *ngIf="authService.roleMatch(['ROLE_MANAGER']) || authService.roleMatch(['ROLE_ADMIN'])">
+        <a class="list-group-item list-group-item-action" routerLink="/tasks" routerLinkActive="active"  *ngIf="authService.roleMatch(['ROLE_MANAGER']) || authService.roleMatch(['ROLE_ADMIN'])">
         <i class="fa fa-list"></i> Tasks
         </a>
         

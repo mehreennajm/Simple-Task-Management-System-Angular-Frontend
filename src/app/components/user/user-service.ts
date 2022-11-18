@@ -1,6 +1,7 @@
 import { Injectable, Input } from "@angular/core";
 import {OnInit } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   FormBuilder,
@@ -19,6 +20,7 @@ export class UserService implements OnInit {
   userChanged=new Subject<User[]>;
   userChangedTwo=new Subject<User[]>;
   imageUrl: string;
+  imageName:any;
   
 
   constructor(
@@ -40,17 +42,27 @@ export class UserService implements OnInit {
   getUsers() {
     return this.httpClient.get<any>("api/users").subscribe((data) => {
       this.userChanged.next(data);
-     
     });
 
   }
 
+
   getListOfManagers() {
-    return this.httpClient.get<any>("api/users/managers").subscribe((data) => {
+    return this.httpClient.get<any>("/api/users/managers").subscribe((data) => {
       this.userChangedTwo.next(data);
     });
 
   }
+
+  
+    
+
+  //   getImage(){
+  //     const serviceUrl = "api/" + this.imageName;
+  //     return this.httpClient.get<any>(serviceUrl);
+  // }
+  
+  
 
   openCreateModal(content: any) {
     this.modalService

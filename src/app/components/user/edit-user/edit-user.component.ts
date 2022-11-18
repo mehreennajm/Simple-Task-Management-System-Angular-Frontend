@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user-model';
 import { UserService } from '../user-service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-user',
@@ -21,12 +22,12 @@ export class EditUserComponent implements OnInit {
   file_error:any;
   selectedFile :File = null as any;
   selectedFileName = '';
-  disable_file_uplaod_button:any = false;
+  disable_file_uplaod_button = true;
   
   constructor(private bsModalRef: BsModalRef,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService 
+    private toastr: ToastrService
     ) {
 
       this.editForm =  this.formBuilder.group({
@@ -37,7 +38,7 @@ export class EditUserComponent implements OnInit {
         password:['',Validators.required],
         role: ['',Validators.required],
         profilePhoto: [''],
-        fileSource: [null],
+        fileSource: [''],
         
       });
 
@@ -53,7 +54,8 @@ export class EditUserComponent implements OnInit {
         email: this.user.email,
         password: this.user.password,
         role: this.user.role,
-        profilePhoto:this.user.profilePhoto
+        profilePhoto:this.user.profilePhoto,
+        fileSource: this.user.profilePhoto
         })
     }
         // on file select event
@@ -76,7 +78,7 @@ export class EditUserComponent implements OnInit {
    else{
       ext = this.selectedFile.name.split('?')[0].split('.').pop();
       if(ext=='png' || ext=='jpg' || ext=='jpeg' || ext=='gif' ){
-        this.disable_file_uplaod_button = true;
+        this.disable_file_uplaod_button = false;
       }else{
         this.disable_file_uplaod_button = false;
         this.file_error = "Please enter valid Image e.g (jpg, jpeg,png,gif)";
@@ -92,8 +94,7 @@ export class EditUserComponent implements OnInit {
 		}
   }
 
-        onSave() {
-     
+    onSave() {
         const form = new FormData();
         form.append('userId', this.editForm.get('userId')?.value);
         form.append('profilePhoto', this.editForm.get('fileSource')?.value);

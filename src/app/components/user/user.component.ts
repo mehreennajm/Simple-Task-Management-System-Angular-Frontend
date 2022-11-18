@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { EmailValidator, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import {  FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { User } from 'src/app/models/user-model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user',
@@ -18,14 +19,22 @@ export class UserComponent implements OnInit {
   selectedDep : string = "";
   url: any;
   msg="";
-  thumbnail: any;
 
+  sanitizer: DomSanitizer;   
+  image : any;   
+  readonly imageType : string = 'data:image/PNG;base64,'; 
+  
+  
 
   file_error:any;
   selectedFile :File = null as any;
   selectedFileName = '';
   disable_file_uplaod_button:any = false;
-
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message: string;
+  imageName: any;
 
   // form group
   submitForm: FormGroup;
@@ -35,7 +44,7 @@ export class UserComponent implements OnInit {
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef,
     private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer) 
+    private httpClient: HttpClient) 
     {
     this.submitForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -46,14 +55,16 @@ export class UserComponent implements OnInit {
       profilePhoto: ['',Validators.required],
       fileSource: [null,Validators.required],
     });
+
+    
   }
 
 
   ngOnInit(): void {
+
     this.userService.getUsers();
     this.userService.userChanged.subscribe((u:any) => {
       this.data = u;
-     
       setTimeout(()=>{                          
         $('#dataableUsers').DataTable( {
           pagingType: 'full_numbers',
@@ -66,6 +77,12 @@ export class UserComponent implements OnInit {
     });
    
     }
+
+    getImage(){   
+      const serviceUrl = "api/users" + this.imageName;
+      return this.httpClient.get(serviceUrl).subscribe((res=>{
+        console.log(res)
+      }))} 
 
   
   open(content: any) {

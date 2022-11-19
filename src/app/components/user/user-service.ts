@@ -1,13 +1,12 @@
-import { Injectable, Input } from "@angular/core";
+import { Injectable} from "@angular/core";
 import {OnInit } from "@angular/core";
-import { map } from "rxjs";
+import { map, Observable, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   FormBuilder,
   FormGroup,
 } from "@angular/forms";
-import { Observable, Subject } from "rxjs";
 import { User } from "src/app/models/user-model";
 import { ToastrService } from "ngx-toastr";
 
@@ -21,7 +20,6 @@ export class UserService implements OnInit {
   userChangedTwo=new Subject<User[]>;
   imageUrl: string;
   imageName:any;
-  
 
   constructor(
     private httpClient: HttpClient,
@@ -43,10 +41,8 @@ export class UserService implements OnInit {
     return this.httpClient.get<any>("api/users").subscribe((data) => {
       this.userChanged.next(data);
     });
-
   }
-
-
+   
   getListOfManagers() {
     return this.httpClient.get<any>("/api/users/managers").subscribe((data) => {
       this.userChangedTwo.next(data);
@@ -54,15 +50,12 @@ export class UserService implements OnInit {
 
   }
 
-  
-    
+ 
+  getImage(){ 
+      const serviceUrl = "api/" + this.imageName;
+      return this.httpClient.get(serviceUrl);
+  }
 
-  //   getImage(){
-  //     const serviceUrl = "api/" + this.imageName;
-  //     return this.httpClient.get<any>(serviceUrl);
-  // }
-  
-  
 
   openCreateModal(content: any) {
     this.modalService

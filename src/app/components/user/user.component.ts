@@ -54,12 +54,14 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.userService.getUsers();
-    
-    this.userService.userChanged.subscribe((u) => {
-      this.data  = u;
-      let objectURL = 'data:image/jpeg;base64,' + this.data.profilePhoto;
+      this.userService.getUsers();
+        
+      this.userService.userChanged.subscribe((u:any) => {
+          
+      let objectURL = u.profilePhoto;
+
       this.userImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      this.data  = u;
       setTimeout(()=>{                          
         $('#dataableUsers').DataTable( {
           pagingType: 'full_numbers',

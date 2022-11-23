@@ -29,10 +29,10 @@
                   <td><span>{{user.lastName}}</span></td>
                   <td><span>{{user.email}}</span></td>
                   <td><span>{{user.role}}</span></td>
-                  <td><img [src]="userImage"></td>
+                  <td><img src="data:image/jpeg;base64,{{user.profilePhoto}}" class="img-thumbnail"></td>
                   <td>
                       <button class="btn btn-sm btn-warning" (click)="openEdit(user)">
-                        <i class="fa fa-edit"></i></button> &nbsp;
+                        <i class="fa fa-edit"></i></button> 
                       <button class="btn btn-sm btn-danger" (click)="openDelete(contentDelete, user)">
                         <i class="fa fa-remove"></i></button>
                     </td>

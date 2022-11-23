@@ -24,6 +24,7 @@ export class EditTaskComponent implements OnInit {
 
   @Input() selectedUser: User;
  
+  data:any;
 
 
   constructor(
@@ -58,6 +59,8 @@ export class EditTaskComponent implements OnInit {
 
   onSave(task:Task) {
     this.taskService.onUpdateTask(task).subscribe((results) => {
+      this.data = results;
+      console.log(this.data);
       this.toastr.success("Updated the task successfully!");
       this.taskService.getTasks();
       this.bsModalRef.hide();

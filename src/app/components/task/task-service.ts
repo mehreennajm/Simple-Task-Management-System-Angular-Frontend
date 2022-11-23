@@ -3,7 +3,6 @@ import { Injectable, OnInit, Output, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject } from "rxjs";
-import { User } from "src/app/models/user-model";
 import { Task } from 'src/app/models/task-model';
 import { ToastrService } from "ngx-toastr";
 

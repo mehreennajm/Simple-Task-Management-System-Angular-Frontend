@@ -71,8 +71,8 @@
         <label>User name:</label>
         <div class="input-group">
           <select formControlName="userr">
-            <option [selected]="selectedUser" [ngValue]="selectedUser" >
-              {{selectedUser}}
+            <option  [ngValue]="selectedUser" >
+              {{selectedUser.firstName}} {{selectedUser.lastName}}
             </option>
             <option *ngFor="let user of users" [ngValue]="user">
               <p *ngIf="user.role === 'ROLE_USER'">{{user.firstName}} {{user.lastName}}</p>
@@ -83,6 +83,8 @@
           </select>
         </div>
       </div>
+
+      
 
         <div class="modal-footer">
           <button data-dismiss="modal" class="btn btn-info" (click)="onSave(editForm.value)" >Save changes</button>

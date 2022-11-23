@@ -33,10 +33,10 @@ export class TaskComponent implements OnInit {
     this.submitForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       createDate: ['',Validators.required],
-      dueDate: ['',Validators.required],
+      dueDate: ['',Validators.email],
       description: ['',Validators.required],
-      status: ['',Validators.required],
       userr: [null,Validators.required],
+      status: ['',Validators.required],
      
     });
 

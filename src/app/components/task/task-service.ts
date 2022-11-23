@@ -68,9 +68,9 @@ export class TaskService implements OnInit {
       }
     }
   
-    onSubmit(form: NgForm) {
+    onSubmit(form:any) {
       const url = "api/tasks/add-task";
-      this.httpClient.post(url, form.value).subscribe((result) => {
+      this.httpClient.post(url, form).subscribe((result) => {
         this.toastr.success("A new task has been added successfully!")
         this.getTasks(); //reload the table
         this.modalService.dismissAll(); //dismiss the modal

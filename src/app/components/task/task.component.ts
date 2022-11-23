@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { User } from 'src/app/models/user-model';
 import { UserService } from '../user/user-service';
@@ -19,16 +19,28 @@ export class TaskComponent implements OnInit {
   data:any;
   selectedStatus = "";
   selectedUser : User;
-  @ViewChild('f') form: NgForm;
   dtOptions: any = {};
-  
+   // form group
+   submitForm: FormGroup;
 
   constructor(
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef, 
     public userService: UserService,
+    private formBuilder: FormBuilder,
     private taskService: TaskService,
-  ) {}
+  ) {
+    this.submitForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      createDate: ['',Validators.required],
+      dueDate: ['',Validators.required],
+      description: ['',Validators.required],
+      status: ['',Validators.required],
+      userr: [null,Validators.required],
+     
+    });
+
+  }
 
   ngOnInit(): void {
   
@@ -63,11 +75,8 @@ export class TaskComponent implements OnInit {
     this.taskService.openCreateModal(content);
   }
 
-  private getDismissReason(reason: any) {
-   this.taskService.getDismissReason(reason);
-  }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form:any) {
    this.taskService.onSubmit(form);
   }
 

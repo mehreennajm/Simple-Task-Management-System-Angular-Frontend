@@ -118,46 +118,66 @@
     </button>
   </div>
   <div class="modal-body">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <form [formGroup]="submitForm">
       <div class="form-group">
         <label>Title:</label>
         <div class="input-group">
-          <input class="form-control" name="title" ngModel required>
+          <input class="form-control" formControlName="title" required>
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!submitForm.get('title')?.valid &&
+                  submitForm.get('title')?.touched">Please Enter the Title!</span>
         </div>
       </div>
       <div class="form-group">
-        <label for="name">Created date:</label>
+        <label for="createdate">Created date:</label>
         <div class="input-group">
-          <input type="date" class="form-control" name="createDate" ngModel required placeholder="YYYY-MM-DD">
+          <input type="date" class="form-control" formControlName="createDate"  placeholder="YYYY-MM-DD">
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!submitForm.get('createDate')?.valid &&
+                  submitForm.get('createDate')?.touched">Please Enter the create Date!</span>
         </div>
       </div>
       <div class="form-group">
-        <label for="name">Due date:</label>
+        <label for="duedate">Due date:</label>
         <div class="input-group">
-          <input type="date" class="form-control" name="dueDate" ngModel required placeholder="YYYY-MM-DD">
+          <input type="date" class="form-control" formControlName="dueDate"  placeholder="YYYY-MM-DD">
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!submitForm.get('dueDate')?.valid &&
+                  submitForm.get('dueDate')?.touched">Please Enter the Due Date!</span>
         </div>
       </div>
       <div class="form-group">
         <label>Status:</label>
         <div class="input-group">
-          <select name="status" ngModel>
+          <select formControlName="status">
             <option value="CREATED" [defaultSelected]="selectedStatus"> CREATED</option>
             <option value="PENDING"> PENDING</option>
             <option value="COMPLETED"> COMPLETED</option>
             <option value="CANCELED"> CANCELED</option>
           </select>
         </div>
+        <div>
+          <span class="text-danger" *ngIf="!submitForm.get('status')?.valid &&
+                  submitForm.get('status')?.touched">Please Enter the Status!</span>
+        </div>
       </div>
       <div class="form-group">
         <label for="name">Description:</label>
         <div class="input-group">
-          <textarea class="form-control" name="description" ngModel cols="4" rows="4"></textarea>
+          <textarea class="form-control" formControlName="description" cols="4" rows="4"></textarea>
+        </div>
+        <div>
+          <span class="text-danger" *ngIf="!submitForm.get('description')?.valid &&
+                  submitForm.get('description')?.touched">Please Enter the Description!</span>
         </div>
       </div>
       <div class="form-group">
         <label>User:</label>
         <div class="input-group">
-          <select name="userr" ngModel>
+          <select formControlName="userr" >
             <option *ngFor="let user of users" [ngValue]="user">
               <p *ngIf="user.role ==='ROLE_USER'">{{user.firstName}} {{user.lastName}}</p>
             </option>
@@ -165,8 +185,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button data-dismiss="modal" class="btn btn-info" [disabled]="!f.valid">Submit</button>
+        <button data-dismiss="modal" class="btn btn-info" (click)="onSubmit(submitForm.value)" [disabled]="!submitForm.valid && submitForm.touched">Submit</button>
         <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!submitForm.get('userr')?.valid &&
+                submitForm.get('userr')?.touched">Please select a user!</span>
       </div>
     </form>
   </div>

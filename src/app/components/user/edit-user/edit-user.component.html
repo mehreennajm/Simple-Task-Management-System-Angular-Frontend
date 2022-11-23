@@ -1,86 +1,72 @@
- <!----------------- Editing Department Data modal -----------------> 
+ <!----------------- Editing Department Data modal ----------------->
  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title-edit">Update User</h4>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="editForm" (ngSubmit)="onSave()" enctype="multipart/form-data">
-      <input type="hidden" class="form-control" formControlName="userId">
-      <div class="form-group">
-        <label>First name:</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="firstName" required>
-        </div>
-        <div>
-          <span class="text-danger" *ngIf="!editForm.get('firstName')?.valid &&
-          editForm.get('firstName')?.touched">Please Enter the First name!</span>
-        </div>
-        
+  <h4 class="modal-title" id="modal-basic-title-edit">Update User</h4>
+</div>
+<div class="modal-body">
+  <form [formGroup]="editForm" (ngSubmit)="onSave()" enctype="multipart/form-data">
+    <input type="hidden" class="form-control" formControlName="userId">
+    <div class="form-group">
+      <label>First name:</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="firstName" required>
       </div>
-
-      <div class="form-group">
-        <label>Last name:</label>
-        <div class="input-group">
-          <input class="form-control" formControlName="lastName" required>
-        </div>
-        <div>
-          <span class="text-danger" *ngIf="!editForm.get('lastName')?.valid &&
-          editForm.get('lastName')?.touched">Please Enter the Last name!</span>
-        </div>
+      <div>
+        <span class="text-danger" *ngIf="!editForm.get('firstName')?.valid &&
+         editForm.get('firstName')?.touched">Please Enter the First name!</span>
       </div>
-
-      <div class="form-group">
-        <label>Email Address:</label>
-        <div class="input-group">
-          <input type="email" class="form-control" formControlName="email" required>
-        </div>
-        <div>
-          <span class="text-danger" *ngIf="!editForm.get('email')?.valid &&
-          editForm.get('email')?.touched">Please Enter the VALID email address!</span>
-        </div>
+    </div>
+    <div class="form-group">
+      <label>Last name:</label>
+      <div class="input-group">
+        <input class="form-control" formControlName="lastName" required>
       </div>
-
-      <div class="form-group">
-        <label>User role:</label>
-        <div class="input-group">
-          <select formControlName="role">
-            <option value="ROLE_ADMIN"> ADMIN</option>
-            <option value="ROLE_MANAGER"> MANAGER</option>
-            <option value="ROLE_USER"> USER</option>
-          </select>
-        </div>
-         <div>
-          <span class="text-danger" *ngIf="!editForm.get('role')?.valid &&
-            editForm.get('role')?.touched">Please Select the user role!
-          </span>
-          </div>
+      <div>
+        <span class="text-danger" *ngIf="!editForm.get('lastName')?.valid &&
+         editForm.get('lastName')?.touched">Please Enter the Last name!</span>
       </div>
-
-      <div class="form-group">
-        <label>Profile Picture:</label>
-      
-        <div class="input-group">
-          <input type="file" class="form-control" (change)="onFileChange($event)">
-        </div>
-        <img />
-        <p>{{user.profilePhoto}}</p>
-        <div>
-          <span class="text-danger" *ngIf="!editForm.get('profilePhoto')?.valid &&
-          editForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
-
-
-          <span class="text-danger">{{file_error}}</span>
-        </div>
-        <div><img [src]="url" *ngIf="url" class="img-responsive img-thumbnail"></div>
+    </div>
+    <div class="form-group">
+      <label>Email Address:</label>
+      <div class="input-group">
+        <input type="email" class="form-control" formControlName="email" required>
       </div>
-
-        <div class="modal-footer">
-          <button type="submit" data-dismiss="modal" class="btn btn-info">Save changes</button>
-          <button  type="button" class="btn btn-danger" (click)="onClose()">Close</button>
-        </div>
-    </form>
-  </div>
-<!----------------- End editing Data modal -----------------> 
-
-
-
- 
+      <div>
+        <span class="text-danger" *ngIf="!editForm.get('email')?.valid &&
+         editForm.get('email')?.touched">Please Enter the VALID email address!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>User role:</label>
+      <div class="input-group">
+        <select formControlName="role">
+          <option value="ROLE_ADMIN"> ADMIN</option>
+          <option value="ROLE_MANAGER"> MANAGER</option>
+          <option value="ROLE_USER"> USER</option>
+        </select>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!editForm.get('role')?.valid &&
+           editForm.get('role')?.touched">Please Select the user role! </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Profile Picture:</label>
+      <div class="input-group">
+        <input type="file" class="form-control" (change)="onFileChange($event)">
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!editForm.get('profilePhoto')?.valid &&
+         editForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
+        <span class="text-danger">{{file_error}}</span>
+      </div>
+      <div>
+        <img [src]="url" *ngIf="url" class="img-responsive img-thumbnail" alt="...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" data-dismiss="modal" class="btn btn-info">Save changes</button>
+      <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+    </div>
+  </form>
+</div>
+<!----------------- End editing Data modal ----------------->

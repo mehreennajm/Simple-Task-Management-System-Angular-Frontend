@@ -52,7 +52,9 @@
     <div class="form-group">
       <label>Profile Picture:</label>
       <div class="input-group">
-        <input type="file" class="form-control" (change)="onFileChange($event)">
+        
+        <input type="file" class="form-control" (change)="onFileChange($event)" >
+        <img src="data:image/jpeg;base64,{{user.profilePhoto}}" class="img-thumbnail" alt="...">
       </div>
       <div>
         <span class="text-danger" *ngIf="!editForm.get('profilePhoto')?.valid &&

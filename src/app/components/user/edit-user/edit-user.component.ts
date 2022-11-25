@@ -4,7 +4,7 @@ import { User } from 'src/app/models/user-model';
 import { UserService } from '../user-service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-edit-user',
@@ -15,14 +15,14 @@ export class EditUserComponent implements OnInit {
   @Input() selectedRole = "";
   @Input()
   user: User;
-  u:User;
   editForm: FormGroup;
   url: any;
   msg="";
   file_error:any;
-  selectedFile :File = null as any;
+  selectedFile :File;
   selectedFileName = '';
   disable_file_uplaod_button = true;
+
   
   constructor(private bsModalRef: BsModalRef,
     private userService: UserService,
@@ -38,11 +38,10 @@ export class EditUserComponent implements OnInit {
         password:['',Validators.required],
         role: ['',Validators.required],
         profilePhoto: [''],
-        fileSource: [''],
+        fileSource: ['']
         
       });
 
-      
     }
     
 
@@ -55,13 +54,15 @@ export class EditUserComponent implements OnInit {
         password: this.user.password,
         role: this.user.role,
         profilePhoto:this.user.profilePhoto,
-        fileSource: this.user.profilePhoto
+        filesource: this.user.profilePhoto
         })
+
     }
         // on file select event
   onFileChange(event:any) {
     if (event.target.files.length > 0) {
        const fileHolder = event.target.files[0];
+       console.log(fileHolder)
       this.editForm.patchValue({
         fileSource: fileHolder
       });  
@@ -70,18 +71,20 @@ export class EditUserComponent implements OnInit {
     this.file_error = "";
     this.selectedFile = event.target.files[0];
     this.selectedFileName = this.selectedFile.name;
-    let ext = null;
+
+   
+    let fileExtension = null;
     if(this.selectedFile.size > 2000000){
       this.disable_file_uplaod_button = false;
       this.file_error = "Image Size must be less than 2 MB"
     }
    else{
-      ext = this.selectedFile.name.split('?')[0].split('.').pop();
-      if(ext=='png' || ext=='jpg' || ext=='jpeg' || ext=='gif' ){
+      fileExtension = this.selectedFile.name.split('?')[0].split('.').pop();
+      if(fileExtension=='png' || fileExtension=='jpg' || fileExtension=='jpeg'){
         this.disable_file_uplaod_button = false;
       }else{
         this.disable_file_uplaod_button = false;
-        this.file_error = "Please enter valid Image e.g (jpg, jpeg,png,gif)";
+        this.file_error = "The image format must be  (.jpg , .jpeg or .png)";
       }
     }
    
@@ -103,6 +106,9 @@ export class EditUserComponent implements OnInit {
         form.append('password', this.editForm.get('password')?.value);
         form.append('email', this.editForm.get('email')?.value);
         form.append('role', this.editForm.get('role')?.value);
+        
+
+        console.log(this.editForm.get('fileSource')?.value);
         
         this.userService.onUpdateUser(form).subscribe((results) => {
        

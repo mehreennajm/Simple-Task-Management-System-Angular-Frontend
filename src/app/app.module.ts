@@ -28,6 +28,7 @@ import { DeleteUserComponent } from './components/user/delete-user/delete-user.c
 import { CreateTaskComponent } from './components/task/create-task/create-task.component';
 import { DeleteTaskComponent } from './components/task/delete-task/delete-task.component';
 import { DisplayTaskComponent } from './components/task/display-task/display-task.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { DisplayTaskComponent } from './components/task/display-task/display-tas
     CreateTaskComponent,
     DeleteTaskComponent,
     DisplayTaskComponent,
+    NavbarComponent,
   ],
   imports: [
     DataTablesModule,

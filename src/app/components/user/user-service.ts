@@ -9,6 +9,8 @@ import {
 } from "@angular/forms";
 import { User } from "src/app/models/user-model";
 import { ToastrService } from "ngx-toastr";
+import { DeleteUserComponent } from "./delete-user/delete-user.component";
+import { BsModalService } from "ngx-bootstrap/modal";
 
 @Injectable()
 export class UserService implements OnInit {
@@ -25,7 +27,8 @@ export class UserService implements OnInit {
     private httpClient: HttpClient,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService 
+    private toastr: ToastrService ,
+    private bsModalService: BsModalService,
   ) {}
   ngOnInit() {
     this.editForm = this.formBuilder.group({
@@ -56,20 +59,6 @@ export class UserService implements OnInit {
       return this.httpClient.get(serviceUrl);
   }
 
-
-  openCreateModal(content: any) {
-    this.modalService
-      .open(content, { ariaLabelledBy: "modal-basic-title" })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
   getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return "by pressing ESC";
@@ -82,8 +71,7 @@ export class UserService implements OnInit {
 
  
   onSubmitUser(user:FormData) {
-    const url = "api/users/add-user";
-    this.httpClient.post(url,user).subscribe((results) => {
+    this.httpClient.post(`api/users/add-user`, user).subscribe((results) => {
       this.toastr.success("User has been added successfully!");
       this.getUsers();
       this.modalService.dismissAll();
@@ -95,20 +83,23 @@ export class UserService implements OnInit {
     return this.httpClient.put(`api/users/${formData.get('userId')}/edit`, formData);
   }
 
+  
   openDeleteModal(targetModal: any, user: User) {
     this.deleteId = user.userId;
-    this.modalService.open(targetModal, {
-      backdrop: "static",
-      size: "lg",
+    this.bsModalService.show(DeleteUserComponent, {
+      class: 'modal-dialog',
+      initialState: {
+        //@ts-ignore
+        targetModal: targetModal,
+        deleteUser:user
+      }
     });
   }
 
   onDeleteUser() {
-    const deleteURL = "api/users/" + this.deleteId + "/delete";
-    this.httpClient.delete(deleteURL).subscribe((results) => {
+    this.httpClient.delete(`api/users/${this.deleteId}/delete`).subscribe((results) => {
       this.toastr.success("User has been deleted successfully!")
       this.getUsers();
-      this.modalService.dismissAll();
     });
   }
 }

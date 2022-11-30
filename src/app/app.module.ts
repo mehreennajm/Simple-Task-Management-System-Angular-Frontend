@@ -23,6 +23,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { CreateUserComponent } from './components/user/create-user/create-user.component';
+import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     HomeComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    CreateUserComponent,
+    DeleteUserComponent,
   ],
   imports: [
     DataTablesModule,

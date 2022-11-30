@@ -16,10 +16,7 @@ export class DeleteUserComponent implements OnInit {
   @Input()
   deleteUser: User;
 
-  @Input()
-  deleteId : number;
   constructor(private userService: UserService,
-    private bsModalService: BsModalService,
     private bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {

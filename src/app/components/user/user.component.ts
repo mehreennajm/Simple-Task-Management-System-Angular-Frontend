@@ -85,6 +85,7 @@ export class UserComponent implements OnInit {
     });
   }
 
+  //opens delete Modal
   openDelete(targetModal: any, user: User) {
     this.userService.openDeleteModal(targetModal,user);
    }

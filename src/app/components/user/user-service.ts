@@ -53,22 +53,10 @@ export class UserService implements OnInit {
 
   }
 
- 
   getImage(){ 
       const serviceUrl = "api/" + this.imageName;
       return this.httpClient.get(serviceUrl);
   }
-
-  getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
  
   onSubmitUser(user:FormData) {
     this.httpClient.post(`api/users/add-user`, user).subscribe((results) => {

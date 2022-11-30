@@ -85,7 +85,6 @@ export class CreateUserComponent implements OnInit {
     formData.append('email', this.submitForm.get('email')?.value);
     formData.append('role', this.submitForm.get('role')?.value);
     this.userService.onSubmitUser(formData);
-      this.toastr.success("Updated successfully!")
       this.bsModalRef.hide();
       this.userService.getUsers();
   

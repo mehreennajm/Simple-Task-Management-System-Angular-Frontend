@@ -5,6 +5,8 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject } from "rxjs";
 import { Task } from 'src/app/models/task-model';
 import { ToastrService } from "ngx-toastr";
+import { DeleteTaskComponent } from "./delete-task/delete-task.component";
+import { BsModalService } from "ngx-bootstrap/modal";
 
 @Injectable()
 export class TaskService implements OnInit {
@@ -21,7 +23,8 @@ export class TaskService implements OnInit {
       private httpClient: HttpClient,
       private modalService: NgbModal,
       private formBuilder: FormBuilder,
-      private toastr: ToastrService 
+      private toastr: ToastrService ,
+      private bsModalService: BsModalService,
     ) {}
   
     ngOnInit(): void {
@@ -72,7 +75,6 @@ export class TaskService implements OnInit {
       this.httpClient.post(url, form).subscribe((result) => {
         this.toastr.success("A new task has been added successfully!")
         this.getTasks(); //reload the table
-        this.modalService.dismissAll(); //dismiss the modal
       });
       
     }
@@ -93,9 +95,13 @@ export class TaskService implements OnInit {
   
     openDelete(targetModal: any, task: Task) {
       this.deleteId = task.taskId;
-      this.modalService.open(targetModal, {
-        backdrop: "static",
-        size: "lg",
+      this.bsModalService.show(DeleteTaskComponent, {
+        class: 'modal-dialog',
+        initialState: {
+          //@ts-ignore
+          targetModal: targetModal,
+          deleteTask : task
+        }
       });
     }
   

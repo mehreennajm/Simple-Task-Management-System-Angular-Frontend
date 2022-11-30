@@ -5,6 +5,7 @@ import { BsModalRef } from "ngx-bootstrap/modal";
 import { TaskService } from '../task-service';
 import { Task } from 'src/app/models/task-model';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../user/user-service';
 
 @Component({
   selector: 'app-edit-task',
@@ -31,7 +32,8 @@ export class EditTaskComponent implements OnInit {
     private bsModalRef: BsModalRef,
     private taskService: TaskService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService 
+    private toastr: ToastrService,
+    private userService:UserService
   ) {
     this.editForm = this.formBuilder.group({
       taskId: [null, Validators.required],
@@ -53,6 +55,10 @@ export class EditTaskComponent implements OnInit {
       status: this.task.status,
       description: this.task.description,
       userr:  this.task.userr,
+    });
+    this.userService.getListOfManagers();
+    this.userService.userChangedTwo.subscribe((u) => {
+      this.users = u
     });
 
   }

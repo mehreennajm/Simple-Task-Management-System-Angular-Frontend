@@ -6,6 +6,7 @@ import { UserService } from '../user/user-service';
 import { Task } from 'src/app/models/task-model';
 import { TaskService } from './task-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
 
 @Component({
   selector: 'app-task',
@@ -14,33 +15,21 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
 })
 export class TaskComponent implements OnInit {
 
+  content:any;
+  contentDelete:any;
   tasks: Task[];
   users: User[];
   data:any;
   selectedStatus = "";
   selectedUser : User;
   dtOptions: any = {};
-   // form group
-   submitForm: FormGroup;
+  
 
   constructor(
     private bsModalService: BsModalService,
     public bsModalRef: BsModalRef, 
-    public userService: UserService,
-    private formBuilder: FormBuilder,
     private taskService: TaskService,
-  ) {
-    this.submitForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
-      createDate: ['',Validators.required],
-      dueDate: ['',Validators.email],
-      description: ['',Validators.required],
-      userr: [null,Validators.required],
-      status: ['',Validators.required],
-     
-    });
-
-  }
+  ) {}
 
   ngOnInit(): void {
   
@@ -58,10 +47,7 @@ export class TaskComponent implements OnInit {
       } );
       }, 1);
       });
-    this.userService.getListOfManagers();
-    this.userService.userChangedTwo.subscribe((u) => {
-      this.users = u
-    });
+
   }
   
   task:Task;
@@ -71,13 +57,14 @@ export class TaskComponent implements OnInit {
       this.task = task;
   }
   
-  open(content: any) {
-    this.taskService.openCreateModal(content);
-  }
-
-
-  onSubmit(form:any) {
-   this.taskService.onSubmit(form);
+  open(content:any) {
+    this.bsModalService.show(CreateTaskComponent, {
+      class: 'modal-dialog',
+      initialState: {
+        //@ts-ignore
+        task: this.content
+      }
+    });
   }
 
   openEdit(task: Task):void {
@@ -96,12 +83,11 @@ export class TaskComponent implements OnInit {
     });
   }  
   
-  openDelete(targetModal: any, task: Task) {
-   this.taskService.openDelete(targetModal,task);
+  //opens delete task Modal
+  openDelete(contentDelete: any, task: Task) {
+   this.taskService.openDelete(contentDelete,task);
   }
   
 
-  onDelete() {
-   this.taskService.onDelete();
-  }
+ 
 }

@@ -25,6 +25,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
 import { DeleteUserComponent } from './components/user/delete-user/delete-user.component';
+import { CreateTaskComponent } from './components/task/create-task/create-task.component';
+import { DeleteTaskComponent } from './components/task/delete-task/delete-task.component';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { DeleteUserComponent } from './components/user/delete-user/delete-user.c
     ResetPasswordComponent,
     CreateUserComponent,
     DeleteUserComponent,
+    CreateTaskComponent,
+    DeleteTaskComponent,
   ],
   imports: [
     DataTablesModule,

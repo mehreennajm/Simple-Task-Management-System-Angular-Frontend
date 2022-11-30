@@ -7,6 +7,7 @@ import { Task } from 'src/app/models/task-model';
 import { TaskService } from './task-service';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { DisplayTaskComponent } from './display-task/display-task.component';
 
 @Component({
   selector: 'app-task',
@@ -16,6 +17,7 @@ import { CreateTaskComponent } from './create-task/create-task.component';
 export class TaskComponent implements OnInit {
 
   content:any;
+  details:any;
   contentDelete:any;
   tasks: Task[];
   users: User[];
@@ -52,8 +54,15 @@ export class TaskComponent implements OnInit {
   
   task:Task;
   //display the details in modal
-  openDetails(targetModal: any,task: Task) {
-    this.taskService.openDetails(targetModal,task);
+  openDetails(details: any,task: Task) {
+    this.bsModalService.show(DisplayTaskComponent, {
+      class: 'modal-dialog',
+      initialState: {
+        //@ts-ignore
+        details:details,
+        task:task
+      }
+    });
       this.task = task;
   }
   

@@ -1,0 +1,54 @@
+<!----------------- Displaying each task data ----------------->
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Task</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label>Title:</label>
+          <div class="input-group">
+            <input class="form-control" [disabled]="true" [value]="task.title">
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Created at:</label>
+          <div class="input-group">
+            <input class="form-control" [disabled]="true" [value]="task.createDate">
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Due date:</label>
+          <div class="input-group">
+            <input class="form-control" [disabled]="true" [value]="task.dueDate">
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Status"</label>
+          <div class="input-group">
+            <input class="form-control" [disabled]="true" [value]="task.status">
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>User related to this task</label>
+          <div class="input-group">
+            <input class="form-control" [disabled]="true" [value]="task.userr.firstName + ' ' +task.userr.lastName">
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Task Description:</label>
+          <div class="input-group">
+            <textarea id="description" [value]="task.description" class="form-control" [disabled]="true" cols="3" rows="3"></textarea>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+      </div>
+    </div>
+  <!----------------- End Displaying each Department data Section ----------------->
+  

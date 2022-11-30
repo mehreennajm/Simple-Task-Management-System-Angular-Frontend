@@ -10,14 +10,11 @@ import { BsModalService } from "ngx-bootstrap/modal";
 
 @Injectable()
 export class TaskService implements OnInit {
-    tasks: Task
+    
     deleteId: number;
-    closeResult: string;
     editForm: FormGroup;
-    selectedProject: string = "";
     taskChanged=new Subject<Task[]>;
     selectedStatus = "Created";
-    @ViewChild('f') form: NgForm;
   
     constructor(
       private httpClient: HttpClient,
@@ -46,30 +43,6 @@ export class TaskService implements OnInit {
     }
 
 
-  
-    openCreateModal(content: any) {
-      this.modalService
-        .open(content, { ariaLabelledBy: "modal-basic-title" })
-        .result.then(
-          (result) => {
-            this.closeResult = `Closed with: ${result}`;
-          },
-          (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          }
-        );
-    }
-  
-    public getDismissReason(reason: any): string {
-      if (reason === ModalDismissReasons.ESC) {
-        return "by pressing ESC";
-      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-        return "by clicking on a backdrop";
-      } else {
-        return `with: ${reason}`;
-      }
-    }
-  
     onSubmit(form:any) {
       const url = "api/tasks/add-task";
       this.httpClient.post(url, form).subscribe((result) => {
@@ -79,15 +52,7 @@ export class TaskService implements OnInit {
       
     }
 
-      //display the details in modal
-      openDetails(targetModal: any, task: Task) {
-        this.modalService.open(targetModal, {
-          centered: true,
-          backdrop: "static",
-          size: "lg",
-        });
-      }
-
+     
       
     onUpdateTask(task: Task): Observable<any> {
         return this.httpClient.put(`api/tasks/${task.taskId}/edit`, task);

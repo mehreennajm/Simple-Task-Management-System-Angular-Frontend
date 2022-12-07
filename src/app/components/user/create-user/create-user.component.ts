@@ -31,7 +31,7 @@ export class CreateUserComponent implements OnInit {
     this.submitForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['',Validators.required],
-      email: ['',Validators.email],
+      email: ['',[Validators.email, Validators.required]],
       password: ['',Validators.required],
       role: ['',Validators.required],
       profilePhoto: ['',Validators.required],

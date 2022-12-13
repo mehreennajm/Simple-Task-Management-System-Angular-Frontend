@@ -54,19 +54,19 @@
       <div class="input-group">
         
         <input type="file" class="form-control" (change)="onFileChange($event)" >
-        <img src="data:image/jpeg;base64,{{user.profilePhoto}}" class="img-thumbnail" alt="...">
+        <img [src]="profilePhotoUrl" class="img-thumbnail" alt="...">
       </div>
       <div>
         <span class="text-danger" *ngIf="!editForm.get('profilePhoto')?.valid &&
          editForm.get('profilePhoto')?.touched">Please Select a Profile!</span>
-        <span class="text-danger">{{file_error}}</span>
+         <span class="text-danger">{{file_error}}</span>
       </div>
       <div>
         <img [src]="url" *ngIf="url" class="img-responsive img-thumbnail" alt="...">
       </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" data-dismiss="modal" class="btn btn-info">Save changes</button>
+      <button type="submit" data-dismiss="modal" class="btn btn-info" [disabled]="!editForm.valid" *ngIf="disable_file_uplaod_button" >Save changes</button>
       <button type="button" class="btn btn-danger" (click)="onClose()">Close</button>
     </div>
   </form>

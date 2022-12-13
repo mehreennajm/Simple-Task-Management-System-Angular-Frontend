@@ -1,12 +1,11 @@
 import { Component, OnInit, Sanitizer} from '@angular/core';
-import {  FormBuilder,  FormGroup, Validators } from '@angular/forms';
+import {  FormGroup} from '@angular/forms';
 import { UserService } from './user-service';
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { User } from 'src/app/models/user-model';
 import {DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CreateUserComponent } from './create-user/create-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 
 
@@ -26,6 +25,7 @@ export class UserComponent implements OnInit {
   contentDelete: any;
   deleteUser: User;
   deleteId: number;
+
 
   // form group
   submitForm: FormGroup;

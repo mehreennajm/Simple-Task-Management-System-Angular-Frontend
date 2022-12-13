@@ -12,6 +12,7 @@ export class ForgotPasswordComponent implements OnInit {
   submitForgetForm:FormGroup;
   showMsg: boolean = false;
   errMsg:string ='';
+  isLoading = false;
 
   constructor(private http:HttpClient,
               private formBuilder: FormBuilder ) { }
@@ -23,14 +24,20 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit(user:User) {
+    this.isLoading = true;
       const url = "api/forgot_password";
       this.http.post(url,user).subscribe( 
       (next)=>{
         this.submitForgetForm.reset();
         this.showMsg = true;
-      }
-      ,
-      );
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 3);
+        setTimeout(() => {
+          this.showMsg = false;
+        }, 3000);
+
+      });
    }
 
 }

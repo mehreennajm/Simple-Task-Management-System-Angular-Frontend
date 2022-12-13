@@ -1,7 +1,8 @@
 import { HttpClient} from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Route, Router} from '@angular/router';
+
 
 
 @Component({
@@ -9,7 +10,7 @@ import { ActivatedRoute} from '@angular/router';
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit{
   resetForm:FormGroup;
   
    userToken = '';
@@ -24,6 +25,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((queryParam)=>{
       this.userToken = queryParam['token'];
+     
     })
     this.resetForm =  this.formBuilder.group({
       password: ['',Validators.required],
@@ -38,7 +40,9 @@ export class ResetPasswordComponent implements OnInit {
     const url = "api/reset_password?token="+this.userToken;
       this.http.put(url,password).subscribe((result)=>{
         this.showMsg = true;
-      })
+      });
+
+      
   }
 
 

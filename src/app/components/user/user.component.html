@@ -38,7 +38,8 @@
                 <span>{{user.email}}</span>
               </td>
               <td>
-                <span>{{user.role}}</span>
+                <!--  remove the ROLE_ characters from role column -->
+                <span>{{user.role | slice:5 }}</span>
               </td>
               <td>
                 <img src="data:image/jpeg;base64,{{user.profilePhoto}}" class="img-thumbnail" alt="...">

@@ -25,8 +25,7 @@ export class ResetPasswordComponent implements OnInit{
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((queryParam)=>{
       this.userToken = queryParam['token'];
-     
-    })
+    });
     this.resetForm =  this.formBuilder.group({
       password: ['',Validators.required],
       });  

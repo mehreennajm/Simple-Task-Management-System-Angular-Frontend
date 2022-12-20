@@ -30,35 +30,35 @@ export class EditUserComponent implements OnInit {
     private toastr: ToastrService
     ) {
 
-      this.editForm =  this.formBuilder.group({
-        userId: [null,Validators.required],
-        firstName: ['',Validators.required],
-        lastName:['',Validators.required],
-        email:['',Validators.required],
-        password:['',Validators.required],
-        role: ['',Validators.required],
-        profilePhoto: ['',Validators.required],
-        
-        
-      });
 
     }
     
 
     ngOnInit(): void {
+      this.editForm =  this.formBuilder.group({
+        userId: [this.user.userId],
+        firstName: [this.user.firstName],
+        lastName:[this.user.lastName],
+        email:[this.user.email],
+        role: [this.user.role],
+        profilePhoto: [this.profilePhotoUrl],
+        
+      });
+
       // Set the profile photo URL
       this.profilePhotoUrl = `data:image/jpeg;base64,${this.user.profilePhoto}`;
-      // Patch the existing form values
-      this.editForm.patchValue({
-            userId: this.user.userId,
-            firstName: this.user.firstName,
-            lastName: this.user.lastName, 
-            email: this.user.email, 
-            password: this.user.password, 
-            role: this.user.role,
-            profilePhoto:this.profilePhotoUrl
+      // // Patch the existing form values
+      // this.editForm.patchValue({
+      //       userId: this.user.userId,
+      //       firstName: this.user.firstName,
+      //       lastName: this.user.lastName, 
+      //       email: this.user.email, 
+      //       role: this.user.role,
+      //       profilePhoto:this.profilePhotoUrl
             
-      }); }
+      // });
+    
+    }
       
     // on file select event
     onFileChange(event:any) {
@@ -99,16 +99,15 @@ export class EditUserComponent implements OnInit {
       }
     }
     onSave() {
+
       const form = new FormData();
-        form.append('userId', this.editForm.get('userId')?.value);
+       form.append('userId', this.editForm.get('userId')?.value);
         form.append('profilePhoto', this.editForm.get('profilePhoto')?.value);
         form.append('firstName', this.editForm.get('firstName')?.value);
         form.append('lastName', this.editForm.get('lastName')?.value);
-        form.append('password', this.editForm.get('password')?.value);
         form.append('email', this.editForm.get('email')?.value);
         form.append('role', this.editForm.get('role')?.value);
-      
-        
+    
       this.userService.onUpdateUser(form).subscribe((results) => {
       
         this.toastr.success("Updated successfully!")

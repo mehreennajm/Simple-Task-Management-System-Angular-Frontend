@@ -1,11 +1,12 @@
+<app-navbar></app-navbar>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
       <app-sidebar></app-sidebar>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 task-container">
       <div class="border">
-        <button class="btn btn-md btn-outline-primary  float-left" (click)="open(content)">
+        <button class="btn btn-md btn-primary  float-left" (click)="open(content)">
           <i class="fa fa-plus"></i>New Task </button>
       </div>
       <table class="table table-bordered table-striped" id="dataableTasks">

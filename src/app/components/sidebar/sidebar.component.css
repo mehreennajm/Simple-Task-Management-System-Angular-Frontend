@@ -1,8 +1,9 @@
 .container{
-  border-radius: 12.5px;
   background: #dadada;;
   padding: 20px;
   height: 380px;
+  margin-top: -21.6%;
+  margin-left: -12px;
 }
 .mg-top{
     margin-top: 10%;
